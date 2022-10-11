@@ -1,0 +1,17 @@
+{
+    "overview": {
+        "value": "Overview",
+        "upload": "Upload",
+        "download": "Download",
+        "upload total": "Upload Total",
+        "download total": "Download Total",
+        "active connections": "Active Connections"
+    },
+    "proxies": "Proxies",
+    "rules": "Rules",
+    "connections": "Connections",
+    "configuration": "Configuration",
+    "logs": "Logs",
+    "active": "Active",
+    "closed": "Closed"
+}

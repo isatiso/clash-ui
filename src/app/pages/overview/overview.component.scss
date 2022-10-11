@@ -1,0 +1,13 @@
+.traffic-area {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, 180px);
+    grid-gap: 10px;
+    padding: 20px 40px;
+}
+
+.chart-area {
+    padding: 0 40px;
+    margin-top: 20px;
+    position: relative;
+    max-width: 1000px;
+}

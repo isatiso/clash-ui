@@ -1,0 +1,17 @@
+{
+    "overview": {
+        "value": "概览",
+        "upload": "上传",
+        "download": "下载",
+        "upload total": "上传总量",
+        "download total": "下载总量",
+        "active connections": "活动连接"
+    },
+    "proxies": "代理",
+    "rules": "规则",
+    "connections": "连接",
+    "configuration": "配置",
+    "logs": "日志",
+    "active": "活动的",
+    "closed": "已断开"
+}

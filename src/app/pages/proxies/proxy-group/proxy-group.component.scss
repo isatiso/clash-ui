@@ -1,0 +1,79 @@
+@use '@angular/material' as mat;
+@use '../../../../styles' as base;
+
+:host {
+    display: block;
+    padding: 10px 0;
+}
+
+.header {
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    .title {
+        .group-name {
+            font-size: 24px;
+        }
+
+        .group-type {
+            font-size: 12px;
+            margin-left: 5px;
+            color: var(--fg-hint-text);
+        }
+    }
+
+    .count {
+        span {
+            line-height: 1;
+        }
+
+        margin-left: 5px;
+        padding: 3px 6px;
+        border-radius: 5px;
+        background-color: var(--bg-disabled-button);
+    }
+
+    .switch {
+        margin-left: 8px;
+    }
+}
+
+.proxies-expand {
+    display: flex;
+    flex-wrap: wrap;
+    margin: 8px 0 8px -3px;
+
+    .proxy {
+        width: 184px;
+        border-radius: 8px;
+        padding: 8px;
+        transition: transform .2s ease-in-out;
+        cursor: pointer;
+        background-color: var(--bg-card);
+        margin: 3px;
+
+        position: relative;
+        overflow: hidden;
+        outline: none;
+        border: 1px solid transparent;
+
+        &:hover {
+            background-color: var(--bg-hover);
+        }
+
+        &.active {
+            background-color: var(--accent-background-color);
+        }
+
+        .name {
+            font-size: 13px;
+            color: var(--fg-secondary-text);
+        }
+
+        .type {
+            font-size: 13px;
+            color: var(--fg-hint-text);
+        }
+    }
+}

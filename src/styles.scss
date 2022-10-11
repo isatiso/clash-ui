@@ -1,1 +1,125 @@
+// Custom Theming for Angular Material
+// For more information: https://material.angular.io/guide/theming
+@use 'sass:map';
+@use '@angular/material' as mat;
+@import '@angular/material/theming';
+// Plus imports for other components in your app.
+
+// Include the common styles for Angular Material. We include this here so that you only
+// have to load a single css file for Angular Material in your app.
+// Be sure that you only ever include this mixin once!
+@include mat.core();
+
+// Define the palettes for your theme using the Material Design palettes available in palette.scss
+// (imported above). For each palette, you can optionally specify a default, lighter, and darker
+// hue. Available color palettes: https://material.io/design/color/
+$clash-material-primary: mat.define-palette(mat.$indigo-palette);
+$clash-material-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+
+// The warn palette is optional (defaults to red).
+$clash-material-warn: mat.define-palette(mat.$red-palette);
+
+// Create the theme object. A theme consists of configurations for individual
+// theming systems such as "color" or "typography".
+$clash-light-theme: mat.define-light-theme((
+        color: (
+                primary: $clash-material-primary,
+                accent: $clash-material-accent,
+                warn: $clash-material-warn,
+        )
+));
+
+$clash-dark-theme: mat.define-dark-theme((
+        color: (
+                primary: $clash-material-primary,
+                accent: $clash-material-accent,
+                warn: $clash-material-warn,
+        )
+));
+
+@function get-background($theme, $key) {
+    $palette: map.get($theme, $key);
+    @if map.get($theme, is-dark) {
+        @return mat.get-color-from-palette($palette, darker);
+    }
+    @return mat.get-color-from-palette($palette, lighter);
+}
+
+@mixin list-colors($theme, $palette-key) {
+    $palette: map.get($theme, $palette-key);
+    @each $key, $color in $palette {
+        --#{$palette-key}-#{$key}: #{mat.get-color-from-palette($palette, $key)};
+    }
+}
+
+@mixin theme-colors($theme) {
+    $foreground: map.get($theme, foreground);
+    $background: map.get($theme, background);
+    --bg-status-bar: #{mat.get-color-from-palette($background, status-bar)};
+    --bg-app-bar: #{mat.get-color-from-palette($background, app-bar)};
+    --bg-background: #{mat.get-color-from-palette($background, background)};
+    --bg-hover: #{mat.get-color-from-palette($background, hover)};
+    --bg-card: #{mat.get-color-from-palette($background, card)};
+    --bg-dialog: #{mat.get-color-from-palette($background, dialog)};
+    --bg-disabled-button: #{mat.get-color-from-palette($background, disabled-button)};
+    --bg-raised-button: #{mat.get-color-from-palette($background, raised-button)};
+    --bg-focused-button: #{mat.get-color-from-palette($background, focused-button)};
+    --bg-selected-button: #{mat.get-color-from-palette($background, selected-button)};
+    --bg-selected-disabled-button: #{mat.get-color-from-palette($background, selected-disabled-button)};
+    --bg-disabled-button-toggle: #{mat.get-color-from-palette($background, disabled-button-toggle)};
+    --bg-unselected-chip: #{mat.get-color-from-palette($background, unselected-chip)};
+    --bg-disabled-list-option: #{mat.get-color-from-palette($background, disabled-list-option)};
+    --bg-tooltip: #{mat.get-color-from-palette($background, tooltip)};
+    --fg-base: #{mat.get-color-from-palette($foreground, base)};
+    --fg-divider: #{mat.get-color-from-palette($foreground, divider)};
+    --fg-dividers: #{mat.get-color-from-palette($foreground, dividers)};
+    --fg-disabled: #{mat.get-color-from-palette($foreground, disabled)};
+    --fg-disabled-button: #{mat.get-color-from-palette($foreground, disabled-button)};
+    --fg-disabled-text: #{mat.get-color-from-palette($foreground, disabled-text)};
+    --fg-elevation: #{mat.get-color-from-palette($foreground, elevation)};
+    --fg-hint-text: #{mat.get-color-from-palette($foreground, hint-text)};
+    --fg-secondary-text: #{mat.get-color-from-palette($foreground, secondary-text)};
+    --fg-icon: #{mat.get-color-from-palette($foreground, icon)};
+    --fg-icons: #{mat.get-color-from-palette($foreground, icons)};
+    --fg-text: #{mat.get-color-from-palette($foreground, text)};
+    --fg-slider-min: #{mat.get-color-from-palette($foreground, slider-min)};
+    --fg-slider-off: #{mat.get-color-from-palette($foreground, slider-off)};
+    --fg-slider-off-active: #{mat.get-color-from-palette($foreground, slider-off-active)};
+    --primary-background-color: #{get-background($theme, primary)};
+    --accent-background-color: #{get-background($theme, accent)};
+}
+
+// Include theme styles for core and each component used in your app.
+// Alternatively, you can import and @include the theme mixins for each component
+// that you are using.
+//@include mat.all-component-themes($clash-light-theme);
+
+.body[data-theme=light] {
+    @include mat.all-component-themes($clash-light-theme);
+    @include theme-colors($clash-light-theme);
+}
+
+.body[data-theme=dark] {
+    @include mat.all-component-themes($clash-dark-theme);
+    @include theme-colors($clash-dark-theme);
+}
+
+.body {
+    height: 100%;
+}
+
 /* You can add global styles to this file, and also import other style files */
+
+html, body {
+    height: 100%;
+}
+
+body {
+    margin: 0;
+    height: 100%;
+    font-family: Roboto, "Helvetica Neue", sans-serif;
+}
+
+.main-area {
+    padding: 10px 40px;
+}

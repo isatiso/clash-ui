@@ -1,0 +1,14 @@
+<cm-header title="overview.value"></cm-header>
+
+<mat-divider></mat-divider>
+
+<div class="traffic-area">
+    <cm-traffic-card [name]="'overview.upload' | translate" [value]="traffic.up_str"></cm-traffic-card>
+    <cm-traffic-card [name]="'overview.download' | translate" [value]="traffic.down_str"></cm-traffic-card>
+    <cm-traffic-card [name]="'overview.upload total' | translate" [value]="connections.upload_total_str"></cm-traffic-card>
+    <cm-traffic-card [name]="'overview.download total' | translate" [value]="connections.download_total_str"></cm-traffic-card>
+    <cm-traffic-card [name]="'overview.active connections' | translate" [value]="connections.count + ''"></cm-traffic-card>
+</div>
+<div class="chart-area">
+    <canvas id="traffic-chart"></canvas>
+</div>

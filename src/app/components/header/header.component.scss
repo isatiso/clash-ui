@@ -1,0 +1,21 @@
+:host {
+
+    height: 76px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: center;
+
+    padding: 0 40px;
+
+    .title {
+        font-size: 32px;
+        font-weight: 700;
+        flex:1
+    }
+
+    .content-area {
+        display: flex;
+        justify-content: flex-start;
+        align-items: center;
+    }
+}

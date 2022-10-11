@@ -1,0 +1,18 @@
+:host {
+    display: block;
+}
+
+input {
+    background-color: var(--bg-card);
+    background-image: none;
+    border-radius: 20px;
+    border: 1px solid var(--fg-divider);
+    box-sizing: border-box;
+    color: var(--fg-base);
+    display: inline-block;
+    font-size: inherit;
+    outline: none;
+    padding: 8px 15px;
+    transition: border-color .2s cubic-bezier(.645, .045, .355, 1);
+    width: 330px;
+}

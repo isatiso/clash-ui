@@ -1,0 +1,31 @@
+.log-container {
+    display: flex;
+    align-items: center;
+    flex-wrap: wrap;
+
+    .log-time {
+        flex-shrink: 0;
+        color: var(--fg-hint-text);
+        font-size: 14px;
+    }
+
+    .log-type {
+        flex-shrink: 0;
+        text-align: center;
+        width: 66px;
+        padding: 3px 5px;
+        margin: 0 8px;
+        text-transform: uppercase;
+    }
+
+    .log-payload {
+        flex-shrink: 0;
+        display: flex;
+        font-family: Roboto Mono, Menlo, monospace;
+        align-items: center;
+        padding: 8px 0;
+        width: 100%;
+        white-space: pre;
+        overflow: auto;
+    }
+}

@@ -1,0 +1,40 @@
+:host {
+    display: block;
+    height: 100%;
+}
+
+.rule-container {
+    padding: 10px 40px;
+    display: flex;
+    align-items: center;
+
+    .index {
+        width: 40px;
+        padding-right: 15px;
+        color: var(--fg-hint-text);
+    }
+
+    .detail {
+        .payload {
+            font-size: 19px;
+            padding: 10px 0;
+            font-family: Roboto Mono, Menlo, monospace;
+        }
+
+        .rule {
+
+            display: flex;
+            align-items: center;
+            font-size: 12px;
+            opacity: .8;
+
+            .type {
+                width: 110px;
+            }
+
+            .proxy {
+
+            }
+        }
+    }
+}
