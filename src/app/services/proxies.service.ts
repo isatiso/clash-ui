@@ -13,12 +13,12 @@ export class ProxiesService {
     public proxies: Record<string, ProxyItem> = {}
     public groups: Record<string, ProxyItem> = {}
 
-    public request_proxies = new Subject()
+    public $request = new Subject()
 
     constructor(
         private _api: ApiService,
     ) {
-        this.request_proxies.pipe(
+        this.$request.pipe(
             throttleTime(100),
             switchMap(() => this._api.proxies()),
         ).subscribe(({ proxies }) => {

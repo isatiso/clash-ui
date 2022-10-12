@@ -17,7 +17,7 @@ export class ProxyGroupComponent implements OnInit {
     switch_proxy = new Subject<{ group: string, name: string }>()
     switch_proxy_subscription = this.switch_proxy.pipe(
         switchMap(({ group, name }) => this.api.switch_proxies(group, name)),
-    ).subscribe(() => this.proxies.request_proxies.next(null))
+    ).subscribe(() => this.proxies.$request.next(null))
 
     constructor(
         public api: ApiService,

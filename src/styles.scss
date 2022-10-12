@@ -41,8 +41,9 @@ $clash-dark-theme: mat.define-dark-theme((
     $palette: map.get($theme, $key);
     @if map.get($theme, is-dark) {
         @return mat.get-color-from-palette($palette, darker);
+    } @else {
+        @return mat.get-color-from-palette($palette, lighter);
     }
-    @return mat.get-color-from-palette($palette, lighter);
 }
 
 @mixin list-colors($theme, $palette-key) {
@@ -85,6 +86,13 @@ $clash-dark-theme: mat.define-dark-theme((
     --fg-slider-min: #{mat.get-color-from-palette($foreground, slider-min)};
     --fg-slider-off: #{mat.get-color-from-palette($foreground, slider-off)};
     --fg-slider-off-active: #{mat.get-color-from-palette($foreground, slider-off-active)};
+    @if map.get($theme, is-dark) {
+        --navbar-background-color: #{mat.get-color-from-palette($clash-material-primary, default)};
+        --navbar-text-color: #{mat.get-color-from-palette($foreground, base)};
+    } @else {
+        --navbar-background-color: #{mat.get-color-from-palette($background, background)};
+        --navbar-text-color: #{mat.get-color-from-palette($clash-material-primary, default)};
+    }
     --primary-background-color: #{get-background($theme, primary)};
     --accent-background-color: #{get-background($theme, accent)};
 }
@@ -121,5 +129,13 @@ body {
 }
 
 .main-area {
-    padding: 10px 40px;
+    height: calc(100% - 79px);
+    box-sizing: border-box;
+
+    &.padding {
+        padding: 10px 40px;
+        box-sizing: border-box;
+    }
 }
+
+

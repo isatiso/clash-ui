@@ -4,7 +4,7 @@
 
 <mat-divider></mat-divider>
 
-<cdk-virtual-scroll-viewport itemSize="80" style="height: calc(100% - 77px); box-sizing: border-box;">
+<cdk-virtual-scroll-viewport itemSize="80" class="main-area">
     <div *cdkVirtualFor="let rule of list.filtered; index as i" class="rule-container">
         <div class="index">{{ i }}</div>
         <div class="detail">
