@@ -1,71 +1,70 @@
-<cm-header title="configuration"></cm-header>
-
-<mat-divider></mat-divider>
-
-<div style="height: calc(100% - 77px); overflow-y: auto; padding: 10px 40px; box-sizing: border-box;">
-    <div style="max-width: 900px;">
-        <div class="primary-form">
-            <div class="form-item">
-                <label class="label" for="http_proxy_port">HTTP Proxy Port</label>
-                <input [(ngModel)]="http_proxy_port" id="http_proxy_port" type="number">
+<cm-body>
+    <cm-header title="configuration"></cm-header>
+    <div class="main-area padding">
+        <div style="max-width: 900px;">
+            <div class="primary-form">
+                <div class="form-item">
+                    <label class="label" for="http_proxy_port">HTTP Proxy Port</label>
+                    <input [(ngModel)]="http_proxy_port" id="http_proxy_port" type="number">
+                </div>
+                <div class="form-item">
+                    <label class="label" for="socks5_proxy_port">SOCKS5 Proxy Port</label>
+                    <input [(ngModel)]="socks5_proxy_port" id="socks5_proxy_port" type="number">
+                </div>
+                <div class="form-item">
+                    <label class="label" for="mixed_proxy_port">Mixed Port</label>
+                    <input [(ngModel)]="mixed_proxy_port" id="mixed_proxy_port" type="number">
+                </div>
+                <div class="form-item">
+                    <label class="label" for="redir_proxy_port">Redir Port</label>
+                    <input [(ngModel)]="redir_proxy_port" id="redir_proxy_port" type="number">
+                </div>
+                <div class="form-item">
+                    <label class="label" for="mode">Mode</label>
+                    <select [(ngModel)]="mode" id="mode">
+                        <option value="global">Global</option>
+                        <option value="rule">Rule</option>
+                        <option value="direct">Direct</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label class="label" for="log-level">Log Level</label>
+                    <select [(ngModel)]="log_level" id="log-level">
+                        <option value="debug">Debug</option>
+                        <option value="info">Info</option>
+                        <option value="warning">Warning</option>
+                        <option value="error">Error</option>
+                        <option value="silent">Silent</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label class="label" for="allow-lan">Allow Lan</label>
+                    <mat-slide-toggle [(ngModel)]="allow_lan" id="allow-lan"></mat-slide-toggle>
+                </div>
             </div>
-            <div class="form-item">
-                <label class="label" for="socks5_proxy_port">SOCKS5 Proxy Port</label>
-                <input [(ngModel)]="socks5_proxy_port" id="socks5_proxy_port" type="number">
-            </div>
-            <div class="form-item">
-                <label class="label" for="mixed_proxy_port">Mixed Port</label>
-                <input [(ngModel)]="mixed_proxy_port" id="mixed_proxy_port" type="number">
-            </div>
-            <div class="form-item">
-                <label class="label" for="redir_proxy_port">Redir Port</label>
-                <input [(ngModel)]="redir_proxy_port" id="redir_proxy_port" type="number">
-            </div>
-            <div class="form-item">
-                <label class="label" for="mode">Mode</label>
-                <select [(ngModel)]="mode" id="mode">
-                    <option value="global">Global</option>
-                    <option value="rule">Rule</option>
-                    <option value="direct">Direct</option>
-                </select>
-            </div>
-            <div class="form-item">
-                <label class="label" for="log-level">Log Level</label>
-                <select [(ngModel)]="log_level" id="log-level">
-                    <option value="debug">Debug</option>
-                    <option value="info">Info</option>
-                    <option value="warning">Warning</option>
-                    <option value="error">Error</option>
-                    <option value="silent">Silent</option>
-                </select>
-            </div>
-            <div class="form-item">
-                <label class="label" for="allow-lan">Allow Lan</label>
-                <mat-slide-toggle [(ngModel)]="allow_lan" id="allow-lan"></mat-slide-toggle>
-            </div>
-        </div>
-        <mat-divider></mat-divider>
-        <div class="primary-form">
-            <div class="form-item">
-                <label class="label" for="speed_url">Speed Test URL</label>
-                <input [(ngModel)]="speed_url" id="speed_url" type="text">
-            </div>
-            <div class="form-item">
-                <label class="label" for="language">Language</label>
-                <select [ngModel]="configs.language" (ngModelChange)="configs.language = $event; translate.use($event)" id="language">
-                    <option value="en">English</option>
-                    <option value="zh">中文</option>
-                </select>
-            </div>
-            <div class="form-item">
-                <label class="label" for="chart-style">Chart Style</label>
-                <div id="chart-style" style="display: flex; flex-wrap: wrap">
-                    <cm-chart-sample [id]="0" (click)="this.configs.chart_style = 0"></cm-chart-sample>
-                    <cm-chart-sample [id]="1" (click)="this.configs.chart_style = 1"></cm-chart-sample>
-                    <cm-chart-sample [id]="2" (click)="this.configs.chart_style = 2"></cm-chart-sample>
-                    <cm-chart-sample [id]="3" (click)="this.configs.chart_style = 3"></cm-chart-sample>
+            <mat-divider></mat-divider>
+            <div class="primary-form">
+                <div class="form-item">
+                    <label class="label" for="speed_url">Speed Test URL</label>
+                    <input [(ngModel)]="speed_url" id="speed_url" type="text">
+                </div>
+                <div class="form-item">
+                    <label class="label" for="language">Language</label>
+                    <select [ngModel]="configs.language" (ngModelChange)="configs.language = $event; translate.use($event)" id="language">
+                        <option value="en">English</option>
+                        <option value="zh">中文</option>
+                    </select>
+                </div>
+                <div class="form-item">
+                    <label class="label" for="chart-style">Chart Style</label>
+                    <div id="chart-style" style="display: flex; flex-wrap: wrap">
+                        <cm-chart-sample [id]="0" (click)="this.configs.chart_style = 0"></cm-chart-sample>
+                        <cm-chart-sample [id]="1" (click)="this.configs.chart_style = 1"></cm-chart-sample>
+                        <cm-chart-sample [id]="2" (click)="this.configs.chart_style = 2"></cm-chart-sample>
+                        <cm-chart-sample [id]="3" (click)="this.configs.chart_style = 3"></cm-chart-sample>
+                    </div>
                 </div>
             </div>
         </div>
     </div>
-</div>
+</cm-body>

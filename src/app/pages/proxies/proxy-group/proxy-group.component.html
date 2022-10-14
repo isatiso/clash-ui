@@ -1,36 +1,24 @@
 <div *ngIf="group">
     <div class="header">
-        <div class="title">
-            <span class="group-name">{{ proxies.groups[group].name }}</span>
-            <span class="group-type">{{ proxies.groups[group].type }}</span>
-            {{ proxies.groups[group].now }}
-        </div>
-        <div class="count">
-            <span>{{ proxies.groups[group].all?.length ?? 0 }}</span>
-        </div>
+        <div class="title">{{ proxies.groups[group].name }}</div>
+        <div class="type">{{ proxies.groups[group].type }}</div>
+        <div>{{ proxies.groups[group].now }}</div>
+        <div class="count">{{ proxies.groups[group].all?.length ?? 0 }}</div>
         <div class="switch">
-            <button mat-icon-button>
-                <mat-icon aria-hidden="false" aria-label="expand" fontIcon="expand_more"></mat-icon>
+            <button mat-icon-button (click)="expand = !expand">
+                <mat-icon class="expand-icon" [class.rotated]="!expand">expand_more</mat-icon>
             </button>
             <button mat-icon-button>
-                <mat-icon aria-hidden="false" aria-label="speed test" fontIcon="network_check"></mat-icon>
+                <mat-icon>network_check</mat-icon>
             </button>
         </div>
     </div>
-
-    <ng-container *ngIf="expand; else collapse">
-        <div class="proxies-expand">
+    <div class="anime-container" [style.height]="expand ? ass.clientHeight + 'px' : 0">
+        <div #ass class="proxies-expand">
             <div class="proxy mat-elevation-z1" *ngFor="let name of proxies.groups[group].all" [class.active]="name === proxies.groups[group].now" (click)="switch_proxy.next({group, name})">
                 <div class="name">{{ proxies.proxies[name].name }}</div>
                 <div class="type">{{ proxies.proxies[name].type }}</div>
             </div>
         </div>
-    </ng-container>
-    <ng-template #collapse>
-        <div class="proxies-collapse">
-            <div *ngFor="let name of proxies.groups[group].all" [class.active]="name === proxies.groups[group].now">
-                <div>{{ proxies.proxies[name].name }}</div>
-            </div>
-        </div>
-    </ng-template>
+    </div>
 </div>

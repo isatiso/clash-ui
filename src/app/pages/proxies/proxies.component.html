@@ -1,9 +1,8 @@
-<cm-header title="proxies">
-    <cm-filter style="margin-left: auto;"></cm-filter>
-</cm-header>
-
-<mat-divider></mat-divider>
-
-<div class="main-area padding">
-    <cm-proxy-group *ngFor="let group of proxies.group_names" [group]="group"></cm-proxy-group>
-</div>
+<cm-body>
+    <cm-header title="proxies">
+        <cm-filter style="margin-left: auto;"></cm-filter>
+    </cm-header>
+    <div class="main-area">
+        <cm-proxy-group *ngFor="let group of proxies.group_names; even as even" [group]="group" [class.even]="even"></cm-proxy-group>
+    </div>
+</cm-body>

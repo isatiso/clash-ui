@@ -1,0 +1,7 @@
+cm-proxy-group {
+    background-color: var(--bg-background);
+
+    &.even {
+        background-color: var(--bg-card);
+    }
+}

@@ -1,13 +1,12 @@
-<cm-header title="logs">
-    <cm-filter (change)="logs.filter($event)" style="margin-left: auto;"></cm-filter>
-</cm-header>
-
-<mat-divider></mat-divider>
-
-<div style="height: calc(100% - 77px); overflow-y: auto; padding: 10px 40px; box-sizing: border-box;">
-    <div *ngFor="let log of logs.list.filtered" class="log-container">
-        <div class="log-time">{{ log.time | date: 'yyyy-MM-dd hh:mm:ss' }}</div>
-        <div class="log-type" [style.color]="log_level_color(log.type)">{{ log.type }}</div>
-        <div class="log-payload">{{ log.payload }}</div>
+<cm-body>
+    <cm-header title="logs">
+        <cm-filter (change)="logs.filter($event)" style="margin-left: auto;"></cm-filter>
+    </cm-header>
+    <div class="main-area padding">
+        <div *ngFor="let log of logs.list.filtered" class="log-container">
+            <div class="log-time">{{ log.time | date: 'yyyy-MM-dd hh:mm:ss' }}</div>
+            <div class="log-type" [style.color]="log_level_color(log.type)">{{ log.type }}</div>
+            <div class="log-payload">{{ log.payload }}</div>
+        </div>
     </div>
-</div>
+</cm-body>

@@ -1,18 +1,15 @@
-<cm-header title="rules">
-    <cm-filter (change)="list.update_target($event)" style="margin-left: auto;"></cm-filter>
-</cm-header>
-
-<mat-divider></mat-divider>
-
-<cdk-virtual-scroll-viewport itemSize="80" class="main-area">
-    <div *cdkVirtualFor="let rule of list.filtered; index as i" class="rule-container">
-        <div class="index">{{ i }}</div>
-        <div class="detail">
-            <div class="payload">{{ rule.payload }}</div>
-            <div class="rule">
+<cm-body>
+    <cm-header title="rules">
+        <cm-filter (change)="list.update_target($event)" style="margin-left: auto;"></cm-filter>
+    </cm-header>
+    <cdk-virtual-scroll-viewport itemSize="36" class="main-area">
+        <div *cdkVirtualFor="let rule of list.filtered; index as i; even as even;" class="rule-container" [class.even]="even">
+            <div class="rule-content">
+                <div class="index">{{ i }}</div>
+                <div class="payload">{{ rule.payload }}</div>
                 <div class="type">{{ rule.type }}</div>
-                <div [style.color]="rule.color" class="rule-proxy">{{ rule.proxy }}</div>
+                <div [style.color]="rule.color" class="proxy">{{ rule.proxy }}</div>
             </div>
         </div>
-    </div>
-</cdk-virtual-scroll-viewport>
+    </cdk-virtual-scroll-viewport>
+</cm-body>
