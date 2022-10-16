@@ -102,12 +102,12 @@ $clash-dark-theme: mat.define-dark-theme((
 // that you are using.
 //@include mat.all-component-themes($clash-light-theme);
 
-.body[data-theme=light] {
+body[data-theme=light] {
     @include mat.all-component-themes($clash-light-theme);
     @include theme-colors($clash-light-theme);
 }
 
-.body[data-theme=dark] {
+body[data-theme=dark] {
     @include mat.all-component-themes($clash-dark-theme);
     @include theme-colors($clash-dark-theme);
 }
