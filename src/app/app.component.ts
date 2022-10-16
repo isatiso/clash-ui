@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { TranslateService } from '@ngx-translate/core'
+import { BackendService } from './services/backend.service'
 import { ConfigsService } from './services/configs.service'
 import { ConnectionsService } from './services/connections.service'
 
@@ -15,6 +16,7 @@ export class AppComponent implements OnInit {
         private connections: ConnectionsService,
         public translate: TranslateService,
         public configs: ConfigsService,
+        public backend: BackendService,
     ) {
         translate.setDefaultLang(configs.language)
     }

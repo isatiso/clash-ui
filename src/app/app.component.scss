@@ -5,24 +5,32 @@
 
 .navbar {
     position: fixed;
-    top: 0;
     width: 100%;
     z-index: 999;
 
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding-left: 24px;
+    padding-left: 40px;
 
-    background-color: var(--navbar-background-color) !important;
-    color: var(--navbar-text-color) !important;
+    &.header {
+        top: 0;
+        background-color: var(--navbar-background-color) !important;
+        color: var(--navbar-text-color) !important;
+    }
+
+    &.footer {
+        bottom: 0;
+    }
 
     .menu-button {
+
         font-size: 16px;
 
         &.main {
             font-size: 20px;
             font-weight: bold;
+            margin-left: -16px;
         }
     }
 

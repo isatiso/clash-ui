@@ -57,20 +57,19 @@
         padding: 8px;
         transition: transform .2s ease-in-out;
         cursor: pointer;
-        background-color: var(--bg-card);
         margin: 3px;
 
         position: relative;
         overflow: hidden;
         outline: none;
-        border: 1px solid transparent;
+        border: 1px solid var(--fg-divider);
 
         &:hover {
             background-color: var(--bg-hover);
         }
 
         &.active {
-            background-color: var(--accent-background-color);
+            background-color: var(--primary-background-color);
         }
 
         .name {

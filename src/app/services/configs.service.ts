@@ -1,22 +1,28 @@
 import { Injectable } from '@angular/core'
-
-export interface LocalStorageType {
-    theme: 'dark' | 'light'
-    lang: 'zh' | 'en'
-    chart_style: 0 | 1 | 2 | 3
-    backend: string
-}
+import { debounceTime, Subject, switchMap } from 'rxjs'
+import { ApiService, Config } from './api.service'
+import { BackendService } from './backend.service'
+import { LocalService, LocalStorageType } from './local.service'
 
 @Injectable({
     providedIn: 'root'
 })
 export class ConfigsService {
 
-    constructor() {
-        this._chart_style = this.get_local('chart_style') ?? 0
-        this._language = this.get_local('lang') ?? 'en'
-        this._theme = this.get_local('theme') ?? 'dark'
-        this._backend = this.get_local('backend')
+    $update = new Subject<Partial<Config>>()
+
+    constructor(
+        private _api: ApiService,
+        private _backend: BackendService,
+        private _local: LocalService,
+    ) {
+        this._chart_style = this._local.get('chart_style') ?? 0
+        this._language = this._local.get('lang') ?? 'en'
+        this._theme = this._local.get('theme') ?? 'dark'
+        this.$update.pipe(
+            debounceTime(300),
+            switchMap(data => this._api.update_config(data))
+        ).subscribe()
     }
 
     private _chart_style: LocalStorageType['chart_style'] = 0
@@ -25,7 +31,7 @@ export class ConfigsService {
     }
 
     set chart_style(value: LocalStorageType['chart_style']) {
-        this.set_local('chart_style', value)
+        this._local.set('chart_style', value)
         this._chart_style = value
     }
 
@@ -35,7 +41,7 @@ export class ConfigsService {
     }
 
     set language(value: LocalStorageType['lang']) {
-        this.set_local('lang', value)
+        this._local.set('lang', value)
         this._language = value
     }
 
@@ -45,34 +51,7 @@ export class ConfigsService {
     }
 
     set theme(value: LocalStorageType['theme']) {
-        this.set_local('theme', value)
+        this._local.set('theme', value)
         this._theme = value
-    }
-
-    private _backend: LocalStorageType['backend'] | undefined
-    get backend(): LocalStorageType['backend'] | undefined {
-        return this._backend
-    }
-
-    set backend(value: LocalStorageType['backend'] | undefined) {
-        if (!value) {
-            return
-        }
-        this.set_local('backend', value)
-        this._backend = value
-    }
-
-    get_local<K extends keyof LocalStorageType>(key: K): LocalStorageType[K] | undefined {
-        const new_key = 'isatiso.clash.material.' + key
-        const value = localStorage.getItem(new_key)
-        if (value) {
-            return JSON.parse(value)
-        }
-        return
-    }
-
-    set_local<K extends keyof LocalStorageType>(key: K, value: LocalStorageType[K]) {
-        const new_key = 'isatiso.clash.material.' + key
-        localStorage.setItem(new_key, JSON.stringify(value))
     }
 }

@@ -129,7 +129,7 @@ body {
 }
 
 .main-area {
-    height: calc(100% - 79px);
+    height: calc(100% - 81px);
     overflow-y: auto;
 
     &.padding {
@@ -137,5 +137,3 @@ body {
         box-sizing: border-box;
     }
 }
-
-

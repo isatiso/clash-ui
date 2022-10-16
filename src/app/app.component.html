@@ -1,5 +1,5 @@
 <div [attr.data-theme]="configs.theme" class="body">
-    <mat-toolbar class="mat-elevation-z4 navbar">
+    <mat-toolbar class="mat-elevation-z4 navbar header">
 
         <button class="menu-button main" mat-button routerLink="/overview">Clash Material</button>
         <button class="menu-button" mat-button routerLink="/proxies">{{ 'proxies' | translate }}</button>
@@ -8,6 +8,7 @@
         <button class="menu-button" mat-button routerLink="/logs">{{ 'logs' | translate }}</button>
 
         <div class="side-action">
+            <button class="menu-button" mat-button>{{ backend.current.host }}</button>
             <button [matMenuTriggerFor]="language" aria-label="Change Language" mat-icon-button>
                 <mat-icon>translate</mat-icon>
             </button>

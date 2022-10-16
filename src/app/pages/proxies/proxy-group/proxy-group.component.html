@@ -15,7 +15,7 @@
     </div>
     <div class="anime-container" [style.height]="expand ? ass.clientHeight + 'px' : 0">
         <div #ass class="proxies-expand">
-            <div class="proxy mat-elevation-z1" *ngFor="let name of proxies.groups[group].all" [class.active]="name === proxies.groups[group].now" (click)="switch_proxy.next({group, name})">
+            <div class="proxy" *ngFor="let name of proxies.groups[group].all" [class.active]="name === proxies.groups[group].now" (click)="switch_proxy.next({group, name})">
                 <div class="name">{{ proxies.proxies[name].name }}</div>
                 <div class="type">{{ proxies.proxies[name].type }}</div>
             </div>
