@@ -1,5 +1,6 @@
 import { HttpClient } from '@angular/common/http'
 import { Injectable } from '@angular/core'
+import { map } from 'rxjs'
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket'
 import { ProxyItem } from '../lib/retrieve-group'
 import { BackendService } from './backend.service'
@@ -46,17 +47,17 @@ export interface RuleDef {
 }
 
 export interface Config {
-    'allow-lan': boolean
+    allow_lan: boolean
     authentication: any[]
-    'bind-address': string
+    bind_address: string
     ipv6: boolean
-    'log-level': 'debug' | 'info' | 'warning' | 'error' | 'silent'
-    'mixed-port': number
+    log_level: 'debug' | 'info' | 'warning' | 'error' | 'silent'
+    mixed_port: number
     mode: 'global' | 'rule' | 'direct'
     port: number
-    'redir-port': number
-    'socks-port': number
-    'tproxy-port': number
+    redir_port: number
+    socks_port: number
+    tproxy_port: number
 }
 
 export interface LogType {
@@ -115,7 +116,10 @@ export class ApiService {
     }
 
     configs() {
-        return this._http.get<Config>(`http://${this._backend.current.host}/configs`)
+        return this._http.get<Config>(`http://${this._backend.current.host}/configs`).pipe(
+            map(res => Object.entries(res).map(([k, v]) => [k.replace(/-/g, '_'), v])),
+            map(entries => Object.fromEntries(entries) as Config)
+        )
     }
 
     update_config(config: Partial<Config>) {

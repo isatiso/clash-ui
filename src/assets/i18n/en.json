@@ -9,8 +9,7 @@
     },
     "proxies": "Proxies",
     "rules": "Rules",
-    "connections": "Connections",
-    "configuration": "Configuration",
+    "settings": "Settings",
     "logs": "Logs",
     "active": "Active",
     "closed": "Closed"

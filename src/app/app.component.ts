@@ -1,7 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { TranslateService } from '@ngx-translate/core'
-import { BackendComponent } from './components/backend/backend.component'
 import { BackendService } from './services/backend.service'
 import { ConfigsService } from './services/configs.service'
 import { ConnectionsService } from './services/connections.service'
@@ -26,18 +25,5 @@ export class AppComponent implements OnInit {
 
     ngOnInit() {
         this.connections.init()
-    }
-
-    toggle_theme() {
-        if (this.configs.theme === 'light') {
-            this.configs.theme = 'dark'
-        } else {
-            this.configs.theme = 'light'
-        }
-    }
-
-    change_backend() {
-        return this.dialog.open(BackendComponent).afterClosed()
-            .subscribe()
     }
 }

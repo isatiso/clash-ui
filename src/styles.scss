@@ -1,41 +1,17 @@
-// Custom Theming for Angular Material
-// For more information: https://material.angular.io/guide/theming
 @use 'sass:map';
 @use '@angular/material' as mat;
 @import '@angular/material/theming';
-// Plus imports for other components in your app.
 
-// Include the common styles for Angular Material. We include this here so that you only
-// have to load a single css file for Angular Material in your app.
-// Be sure that you only ever include this mixin once!
 @include mat.core();
 
-// Define the palettes for your theme using the Material Design palettes available in palette.scss
-// (imported above). For each palette, you can optionally specify a default, lighter, and darker
-// hue. Available color palettes: https://material.io/design/color/
-$clash-material-primary: mat.define-palette(mat.$indigo-palette);
-$clash-material-accent: mat.define-palette(mat.$pink-palette, A200, A100, A400);
+$light-primary: mat.define-palette(mat.$deep-purple-palette);
+$light-accent: mat.define-palette(mat.$orange-palette, A200, A100, A400);
+$dark-primary: mat.define-palette(mat.$orange-palette);
+$dark-accent: mat.define-palette(mat.$deep-purple-palette, A200, A100, A400);
+$warn: mat.define-palette(mat.$red-palette);
 
-// The warn palette is optional (defaults to red).
-$clash-material-warn: mat.define-palette(mat.$red-palette);
-
-// Create the theme object. A theme consists of configurations for individual
-// theming systems such as "color" or "typography".
-$clash-light-theme: mat.define-light-theme((
-        color: (
-                primary: $clash-material-primary,
-                accent: $clash-material-accent,
-                warn: $clash-material-warn,
-        )
-));
-
-$clash-dark-theme: mat.define-dark-theme((
-        color: (
-                primary: $clash-material-primary,
-                accent: $clash-material-accent,
-                warn: $clash-material-warn,
-        )
-));
+$clash-light-theme: mat.define-light-theme((color: (primary: $light-primary, accent: $light-accent, warn: $warn)));
+$clash-dark-theme: mat.define-dark-theme((color: (primary: $dark-primary, accent: $dark-accent, warn: $warn)));
 
 @function get-background($theme, $key) {
     $palette: map.get($theme, $key);
@@ -54,6 +30,8 @@ $clash-dark-theme: mat.define-dark-theme((
 }
 
 @mixin theme-colors($theme) {
+    $primary: map.get($theme, primary);
+    $accent: map.get($theme, accent);
     $foreground: map.get($theme, foreground);
     $background: map.get($theme, background);
     --bg-status-bar: #{mat.get-color-from-palette($background, status-bar)};
@@ -86,29 +64,23 @@ $clash-dark-theme: mat.define-dark-theme((
     --fg-slider-min: #{mat.get-color-from-palette($foreground, slider-min)};
     --fg-slider-off: #{mat.get-color-from-palette($foreground, slider-off)};
     --fg-slider-off-active: #{mat.get-color-from-palette($foreground, slider-off-active)};
-    @if map.get($theme, is-dark) {
-        --navbar-background-color: #{mat.get-color-from-palette($clash-material-primary, default)};
-        --navbar-text-color: #{mat.get-color-from-palette($foreground, base)};
-    } @else {
-        --navbar-background-color: #{mat.get-color-from-palette($background, background)};
-        --navbar-text-color: #{mat.get-color-from-palette($clash-material-primary, default)};
-    }
+
+    --navbar-background-color: #{mat.get-color-from-palette($background, background)};
+    --navbar-text-color: #{mat.get-color-from-palette($primary, default)};
     --primary-background-color: #{get-background($theme, primary)};
     --accent-background-color: #{get-background($theme, accent)};
+    --primary-color: #{mat.get-color-from-palette($primary, default)};
+    --accent-color: #{mat.get-color-from-palette($accent, default)};
 }
 
-// Include theme styles for core and each component used in your app.
-// Alternatively, you can import and @include the theme mixins for each component
-// that you are using.
-//@include mat.all-component-themes($clash-light-theme);
-
-body[data-theme=light] {
+body {
+    // default is light
     @include mat.all-component-themes($clash-light-theme);
     @include theme-colors($clash-light-theme);
 }
 
 body[data-theme=dark] {
-    @include mat.all-component-themes($clash-dark-theme);
+    @include mat.all-component-colors($clash-dark-theme);
     @include theme-colors($clash-dark-theme);
 }
 

@@ -1,6 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core'
 import { Chart, registerables } from 'chart.js'
 import { chart_styles, common_chart_options, common_dataset_props } from '../../lib/chart-lib'
+import { seconds_to_str } from '../../lib/seconds-to-str'
 import { ConfigsService } from '../../services/configs.service'
 import { ConnectionsService } from '../../services/connections.service'
 import { TrafficService } from '../../services/traffic.service'
@@ -14,6 +15,7 @@ Chart.register(...registerables)
 })
 export class OverviewComponent implements AfterViewInit {
 
+    public table: 'active' | 'closed' = 'active'
     private chart_ctx?: CanvasRenderingContext2D
     private chart?: Chart
     private update_subscription = this.traffic.$update.subscribe(() => this.chart?.update())
@@ -23,6 +25,10 @@ export class OverviewComponent implements AfterViewInit {
         public traffic: TrafficService,
         public connections: ConnectionsService,
     ) {
+    }
+
+    seconds_to_str(seconds: number) {
+        return seconds_to_str(seconds)
     }
 
     ngAfterViewInit(): void {

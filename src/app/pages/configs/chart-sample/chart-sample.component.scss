@@ -7,9 +7,9 @@
     height: 45px;
     padding: 5px;
     border-radius: 5px;
-    border: 1px solid rgba(0, 0, 0, 0);
-}
+    border: 2px solid rgba(0, 0, 0, 0);
 
-.selected {
-    border: 1px solid var(--fg-base);
+    &.selected {
+        border: 2px solid var(--accent-color);
+    }
 }
