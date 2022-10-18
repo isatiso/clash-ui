@@ -6,13 +6,14 @@
         <button class="menu-button" mat-button routerLink="/rules">{{ 'rules' | translate }}</button>
         <button class="menu-button" mat-button routerLink="/logs">{{ 'logs' | translate }}</button>
 
-        <div class="side-action">
-            <div class="backend">当前clash：{{ backend.current.host }}</div>
-            <button [matMenuTriggerFor]="settings" color="accent" mat-raised-button>设置</button>
+        <div class="action">
+            <!--            <div class="backend">{{ backend.backend.host }}</div>-->
+            <button mat-button (click)="$switch_backend.next(null)">{{ backend.backend.host }}</button>
+            <button [matMenuTriggerFor]="settings" mat-button>设置</button>
             <mat-menu #settings="matMenu">
                 <button [matMenuTriggerFor]="theme" mat-menu-item>主题</button>
                 <button [matMenuTriggerFor]="language" mat-menu-item>语言</button>
-                <button mat-menu-item routerLink="/configs">设置</button>
+                <button mat-menu-item routerLink="/configs">更多</button>
             </mat-menu>
             <mat-menu #language="matMenu">
                 <button (click)="configs.language = 'en'; translate.use('en')" mat-menu-item>English</button>

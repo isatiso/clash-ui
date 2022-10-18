@@ -84,45 +84,57 @@ export class ApiService {
 
     traffic() {
         if (!this._traffic_socket) {
-            this._traffic_socket = webSocket<TrafficData>(`ws://${this._backend.current.host}/traffic`)
+            this._traffic_socket = webSocket<TrafficData>(`${this._backend.ws_url}/traffic?token=${this._backend.backend.secret}`)
         }
         return this._traffic_socket
     }
 
     connections() {
         if (!this._connections_socket) {
-            this._connections_socket = webSocket<ConnectionsData>(`ws://${this._backend.current.host}/connections`)
+            this._connections_socket = webSocket<ConnectionsData>(`${this._backend.ws_url}/connections?token=${this._backend.backend.secret}`)
         }
         return this._connections_socket
     }
 
     logs() {
         if (!this._logs_socket) {
-            this._logs_socket = webSocket<any>(`ws://${this._backend.current.host}/logs`)
+            this._logs_socket = webSocket<any>(`${this._backend.ws_url}/logs?token=${this._backend.backend.secret}`)
         }
         return this._logs_socket
     }
 
     proxies() {
-        return this._http.get<{ proxies: Record<string, ProxyItem> }>(`http://${this._backend.current.host}/proxies`)
+        return this._http.get<{ proxies: Record<string, ProxyItem> }>(`${this._backend.http_url}/proxies`,
+            { headers: { 'Authorization': `Bearer ${this._backend.backend.secret}` } })
     }
 
     switch_proxies(group: string, name: string) {
-        return this._http.put(`http://${this._backend.current.host}/proxies/${group}`, { name })
+        return this._http.put(`${this._backend.http_url}/proxies/${group}`, { name },
+            { headers: { 'Authorization': `Bearer ${this._backend.backend.secret}` } })
     }
 
     rules() {
-        return this._http.get<{ rules: RuleDef[] }>(`http://${this._backend.current.host}/rules`)
+        return this._http.get<{ rules: RuleDef[] }>(`${this._backend.http_url}/rules`,
+            { headers: { 'Authorization': `Bearer ${this._backend.backend.secret}` } })
+    }
+
+    version() {
+        return this._http.get<{ version: string }>(`${this._backend.http_url}/version`,
+            { headers: { 'Authorization': `Bearer ${this._backend.backend.secret}` } })
     }
 
     configs() {
-        return this._http.get<Config>(`http://${this._backend.current.host}/configs`).pipe(
+        return this._http.get<Config>(`${this._backend.http_url}/configs`,
+            { headers: { 'Authorization': `Bearer ${this._backend.backend.secret}` } }
+        ).pipe(
             map(res => Object.entries(res).map(([k, v]) => [k.replace(/-/g, '_'), v])),
             map(entries => Object.fromEntries(entries) as Config)
         )
     }
 
     update_config(config: Partial<Config>) {
-        return this._http.patch<void>(`http://${this._backend.current.host}/configs`, config)
+        const new_config = Object.fromEntries(Object.keys(config).map(k => [k.replace(/_/g, '-'), config[k as keyof Config]]))
+        return this._http.patch<void>(`${this._backend.http_url}/configs`, new_config,
+            { headers: { 'Authorization': `Bearer ${this._backend.backend.secret}` } })
     }
 }

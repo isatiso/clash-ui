@@ -5,8 +5,8 @@ export interface LocalStorageType {
     theme: 'dark' | 'light'
     lang: 'zh' | 'en'
     chart_style: 0 | 1 | 2 | 3
-    backends: BackendType[]
-    current_backend: BackendType
+    backend: BackendType
+    speed_url: string
 }
 
 @Injectable({

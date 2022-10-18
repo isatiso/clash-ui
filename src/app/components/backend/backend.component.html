@@ -1,7 +1,20 @@
 <div mat-dialog-title>{{ 'backend.switch' | translate }}</div>
 <div mat-dialog-content>
-    <div>请填写需要切换的 backend</div>
+    <mat-hint *ngIf="form.controls.url.errors">
+        {{ form.controls.url.errors['msg'] }}
+    </mat-hint>
+    <form [formGroup]="form" action="">
+        <mat-form-field appearance="standard" style="width: 70%">
+            <mat-label>Backend URL</mat-label>
+            <input formControlName="url" matInput>
+        </mat-form-field>
+        <mat-form-field appearance="standard" style="width: 20%; margin-left: 10px;">
+            <mat-label>Secret(Optional)</mat-label>
+            <input formControlName="secret" matInput>
+        </mat-form-field>
+    </form>
 </div>
-<div mat-dialog-actions>
-    <button mat-button (click)="ref.close()">Close</button>
+<div [align]="'end'" mat-dialog-actions>
+    <button (click)="ref.close()" mat-button>Close</button>
+    <button (click)="finish()" color="primary" mat-raised-button>Add</button>
 </div>

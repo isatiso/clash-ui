@@ -4,7 +4,7 @@
     grid-template-columns: repeat(auto-fill, minmax(345px, 1fr));
     max-width: 900px;
     gap: 15px;
-    padding-bottom: 15px;
+    padding: 20px 0;
 
     .form-item {
         width: 100%;
@@ -13,37 +13,6 @@
             display: block;
             padding: 11px 0;
             color: var(--fg-secondary-text);
-        }
-
-        input {
-            background-color: var(--bg-card);
-            background-image: none;
-            border-radius: 4px;
-            border: 1px solid var(--fg-divider);
-            box-sizing: border-box;
-            color: inherit;
-            display: inline-block;
-            font-size: inherit;
-            height: 40px;
-            outline: none;
-            padding: 0 15px;
-            width: 100%;
-        }
-
-        select {
-            background-color: var(--bg-card);
-            background-image: none;
-            border-radius: 4px;
-            border: 1px solid var(--fg-divider);
-            box-sizing: border-box;
-            color: inherit;
-            display: inline-block;
-            font-size: inherit;
-            height: 40px;
-            outline: none;
-            padding-left: 8px;
-            padding-right: 20px;
-            width: 100%;
         }
     }
 }

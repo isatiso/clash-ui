@@ -1,65 +1,70 @@
 <cm-body>
     <cm-header title="settings"></cm-header>
     <div class="main-area padding">
-        <div style="max-width: 900px;">
-            <form [formGroup]="settings_form" class="primary-form">
-                <mat-form-field appearance="fill">
-                    <mat-label>HTTP Proxy Port</mat-label>
-                    <input formControlName="port" matInput type="number">
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>SOCKS5 Proxy Port</mat-label>
-                    <input formControlName="socks_port" matInput type="number">
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Mixed Port</mat-label>
-                    <input formControlName="mixed_port" matInput type="number">
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Redir Port</mat-label>
-                    <input formControlName="redir_port" matInput type="number">
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Mode</mat-label>
-                    <mat-select formControlName="mode">
-                        <mat-option [value]="'global'">Global</mat-option>
-                        <mat-option [value]="'rule'">Rule</mat-option>
-                        <mat-option [value]="'direct'">Direct</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-form-field appearance="fill">
-                    <mat-label>Log Level</mat-label>
-                    <mat-select formControlName="log_level">
-                        <mat-option [value]="'debug'">Debug</mat-option>
-                        <mat-option [value]="'info'">Info</mat-option>
-                        <mat-option [value]="'warning'">Warning</mat-option>
-                        <mat-option [value]="'error'">Error</mat-option>
-                        <mat-option [value]="'silent'">Silent</mat-option>
-                    </mat-select>
-                </mat-form-field>
-                <mat-slide-toggle formControlName="allow_lan">Allow LAN</mat-slide-toggle>
-            </form>
-            <mat-divider></mat-divider>
-            <div class="primary-form">
-                <div class="form-item">
-                    <label class="label" for="speed_url">Speed Test URL</label>
-                    <input [(ngModel)]="speed_url" id="speed_url" type="text">
+        <form [formGroup]="settings_form" class="primary-form">
+            <mat-form-field appearance="fill">
+                <mat-label>HTTP Proxy Port</mat-label>
+                <input formControlName="port" matInput type="number">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>SOCKS5 Proxy Port</mat-label>
+                <input formControlName="socks_port" matInput type="number">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Mixed Port</mat-label>
+                <input formControlName="mixed_port" matInput type="number">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Redir Port</mat-label>
+                <input formControlName="redir_port" matInput type="number">
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Mode</mat-label>
+                <mat-select formControlName="mode">
+                    <mat-option [value]="'global'">Global</mat-option>
+                    <mat-option [value]="'rule'">Rule</mat-option>
+                    <mat-option [value]="'direct'">Direct</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Log Level</mat-label>
+                <mat-select formControlName="log_level">
+                    <mat-option [value]="'debug'">Debug</mat-option>
+                    <mat-option [value]="'info'">Info</mat-option>
+                    <mat-option [value]="'warning'">Warning</mat-option>
+                    <mat-option [value]="'error'">Error</mat-option>
+                    <mat-option [value]="'silent'">Silent</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <mat-slide-toggle formControlName="allow_lan">Allow LAN</mat-slide-toggle>
+        </form>
+        <mat-divider></mat-divider>
+        <div class="primary-form">
+            <mat-form-field appearance="fill">
+                <mat-label>Speed Test URL</mat-label>
+                <input [(ngModel)]="configs.speed_url" matInput>
+            </mat-form-field>
+            <mat-form-field appearance="fill">
+                <mat-label>Language</mat-label>
+                <mat-select (ngModelChange)="configs.language = $event; translate.use($event)" [ngModel]="configs.language">
+                    <mat-option [value]="'en'">English</mat-option>
+                    <mat-option [value]="'zh'">中文</mat-option>
+                </mat-select>
+            </mat-form-field>
+            <div class="form-item">
+                <label class="label" for="chart-style">Chart Style</label>
+                <div id="chart-style" style="display: flex; flex-wrap: wrap">
+                    <cm-chart-sample (click)="this.configs.chart_style = 0" [id]="0"></cm-chart-sample>
+                    <cm-chart-sample (click)="this.configs.chart_style = 1" [id]="1"></cm-chart-sample>
+                    <cm-chart-sample (click)="this.configs.chart_style = 2" [id]="2"></cm-chart-sample>
+                    <cm-chart-sample (click)="this.configs.chart_style = 3" [id]="3"></cm-chart-sample>
                 </div>
-                <div class="form-item">
-                    <label class="label" for="language">Language</label>
-                    <select (ngModelChange)="configs.language = $event; translate.use($event)" [ngModel]="configs.language" id="language">
-                        <option value="en">English</option>
-                        <option value="zh">中文</option>
-                    </select>
-                </div>
-                <div class="form-item">
-                    <label class="label" for="chart-style">Chart Style</label>
-                    <div id="chart-style" style="display: flex; flex-wrap: wrap">
-                        <cm-chart-sample (click)="this.configs.chart_style = 0" [id]="0"></cm-chart-sample>
-                        <cm-chart-sample (click)="this.configs.chart_style = 1" [id]="1"></cm-chart-sample>
-                        <cm-chart-sample (click)="this.configs.chart_style = 2" [id]="2"></cm-chart-sample>
-                        <cm-chart-sample (click)="this.configs.chart_style = 3" [id]="3"></cm-chart-sample>
-                    </div>
+            </div>
+            <div class="form-item">
+                <label class="label" for="switch-backend">Switch Backend</label>
+                <div id="switch-backend" style="display: flex; justify-content: flex-start; align-items: center; gap: 15px;">
+                    <span style="font-size: 16px;">{{ backend.backend.host }}</span>
+                    <button (click)="this.$switch_backend.next(null)" color="default" mat-raised-button>切换</button>
                 </div>
             </div>
         </div>
