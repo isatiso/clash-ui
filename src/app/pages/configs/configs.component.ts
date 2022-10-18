@@ -25,8 +25,6 @@ export class ConfigsComponent extends AutoUnsubscribe implements OnInit {
         allow_lan: [false],
         mode: ['' as Config['mode']],
         log_level: ['' as Config['log_level']],
-        // 'tproxy_port': [0, Validators.pattern(/^\d+$/)],
-        // 'ipv6': [false],
     })
 
     constructor(

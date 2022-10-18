@@ -54,10 +54,10 @@
             <div class="form-item">
                 <label class="label" for="chart-style">Chart Style</label>
                 <div id="chart-style" style="display: flex; flex-wrap: wrap">
-                    <cm-chart-sample (click)="this.configs.chart_style = 0" [id]="0"></cm-chart-sample>
-                    <cm-chart-sample (click)="this.configs.chart_style = 1" [id]="1"></cm-chart-sample>
-                    <cm-chart-sample (click)="this.configs.chart_style = 2" [id]="2"></cm-chart-sample>
-                    <cm-chart-sample (click)="this.configs.chart_style = 3" [id]="3"></cm-chart-sample>
+                    <cm-chart-sample (click)="this.configs.chart_style = 0" [id]="0" [selected]="configs.chart_style === 0"></cm-chart-sample>
+                    <cm-chart-sample (click)="this.configs.chart_style = 1" [id]="1" [selected]="configs.chart_style === 1"></cm-chart-sample>
+                    <cm-chart-sample (click)="this.configs.chart_style = 2" [id]="2" [selected]="configs.chart_style === 2"></cm-chart-sample>
+                    <cm-chart-sample (click)="this.configs.chart_style = 3" [id]="3" [selected]="configs.chart_style === 3"></cm-chart-sample>
                 </div>
             </div>
             <div class="form-item">

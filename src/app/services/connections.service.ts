@@ -34,6 +34,7 @@ export class ConnectionsService {
     count = 0
     connection_ids: Set<string> = new Set()
     connection_map: Record<string, FormattedConnection> = {}
+
     readonly connections = new FilterArray<FormattedConnection>(
         (key, obj) => obj.host.indexOf(key) !== -1)
     readonly connection_history = new FilterArray<FormattedConnection>(

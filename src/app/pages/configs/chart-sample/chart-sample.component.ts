@@ -11,13 +11,9 @@ import { ConfigsService } from '../../../services/configs.service'
 export class ChartSampleComponent implements AfterViewInit, OnDestroy {
 
     @Input() id = 0
+    @Input() selected: boolean = false
     private chart_ctx?: CanvasRenderingContext2D
     private chart?: Chart
-
-    constructor(
-        public configs: ConfigsService
-    ) {
-    }
 
     ngAfterViewInit(): void {
         const canvas = document.getElementById('chart-' + this.id)! as HTMLCanvasElement

@@ -7,24 +7,36 @@
         <button class="menu-button" mat-button routerLink="/logs">{{ 'logs' | translate }}</button>
 
         <div class="action">
-            <!--            <div class="backend">{{ backend.backend.host }}</div>-->
             <button mat-button (click)="$switch_backend.next(null)">{{ backend.backend.host }}</button>
-            <button [matMenuTriggerFor]="settings" mat-button>设置</button>
-            <mat-menu #settings="matMenu">
-                <button [matMenuTriggerFor]="theme" mat-menu-item>主题</button>
-                <button [matMenuTriggerFor]="language" mat-menu-item>语言</button>
-                <button mat-menu-item routerLink="/configs">更多</button>
-            </mat-menu>
+            <button mat-button routerLink="/configs">设置</button>
+            <button [matMenuTriggerFor]="language" aria-label="Change Language" mat-icon-button>
+                <mat-icon>translate</mat-icon>
+            </button>
+            <button (click)="toggle_theme()" aria-label="Change Mode" mat-icon-button>
+                <ng-container [ngSwitch]="configs.theme">
+                    <mat-icon *ngSwitchCase="'dark'">light_mode</mat-icon>
+                    <mat-icon *ngSwitchCase="'light'">dark_mode</mat-icon>
+                    <mat-icon *ngSwitchDefault>error</mat-icon>
+                </ng-container>
+            </button>
             <mat-menu #language="matMenu">
                 <button (click)="configs.language = 'en'; translate.use('en')" mat-menu-item>English</button>
                 <button (click)="configs.language = 'zh'; translate.use('zh')" mat-menu-item>中文</button>
             </mat-menu>
-            <mat-menu #theme="matMenu">
-                <button (click)="configs.theme = 'light'" mat-menu-item>白天</button>
-                <button (click)="configs.theme = 'dark'" mat-menu-item>黑夜</button>
-            </mat-menu>
+            <!--            <mat-menu #settings="matMenu">-->
+            <!--                <button [matMenuTriggerFor]="theme" mat-menu-item>主题</button>-->
+            <!--                <button [matMenuTriggerFor]="language" mat-menu-item>语言</button>-->
+            <!--                <button mat-menu-item routerLink="/configs">更多</button>-->
+            <!--            </mat-menu>-->
+            <!--            <mat-menu #language="matMenu">-->
+            <!--                <button (click)="configs.language = 'en'; translate.use('en')" mat-menu-item>English</button>-->
+            <!--                <button (click)="configs.language = 'zh'; translate.use('zh')" mat-menu-item>中文</button>-->
+            <!--            </mat-menu>-->
+            <!--            <mat-menu #theme="matMenu">-->
+            <!--                <button (click)="configs.theme = 'light'" mat-menu-item>白天</button>-->
+            <!--                <button (click)="configs.theme = 'dark'" mat-menu-item>黑夜</button>-->
+            <!--            </mat-menu>-->
         </div>
     </mat-toolbar>
     <router-outlet></router-outlet>
 </div>
-

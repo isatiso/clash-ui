@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Component, Inject, OnDestroy } from '@angular/core'
 import { AbstractControl, FormBuilder } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
-import { catchError, filter, of, Subject, switchMap, tap, throttleTime } from 'rxjs'
+import { catchError, Subject, switchMap, tap, throttleTime } from 'rxjs'
 import { AutoUnsubscribe } from '../../lib/auto-unsubscribe'
 import { BackendService, BackendType } from '../../services/backend.service'
 
@@ -53,12 +53,8 @@ export class BackendComponent extends AutoUnsubscribe implements OnDestroy {
             ).subscribe(),
             this.check$.pipe(
                 throttleTime(500),
-                switchMap(() => this._http.get(`${this._backend.http_url}/version`,
-                    { headers: { 'Authorization': `Bearer ${this.form.controls.secret.value}` } })),
-                catchError((_, caught) => {
-                    this.connect_result = 'cannot connect to the address'
-                    return caught
-                }),
+                switchMap(() => this._http.get(`${this._backend.http_url}/version`, { headers: { 'Authorization': `Bearer ${this.form.controls.secret.value}` } })),
+                catchError((_, caught) => (this.connect_result = 'cannot connect to the address') && caught),
                 tap(() => this.ref.close({ ...this.url!, secret: this.form.controls.secret.value }))
             ).subscribe(),
         ]

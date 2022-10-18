@@ -37,4 +37,12 @@ export class AppComponent extends AutoUnsubscribe implements OnInit, OnDestroy {
     ngOnInit() {
         this.connections.init()
     }
+
+    toggle_theme() {
+        if (this.configs.theme === 'dark') {
+            this.configs.theme = 'light'
+        } else {
+            this.configs.theme = 'dark'
+        }
+    }
 }

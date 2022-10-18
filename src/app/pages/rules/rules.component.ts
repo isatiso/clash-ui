@@ -4,6 +4,12 @@ import { AutoUnsubscribe } from '../../lib/auto-unsubscribe'
 import { FilterArray } from '../../lib/filter'
 import { ApiService, RuleDef } from '../../services/api.service'
 
+const type_colors: Record<string, string> = {
+    DIRECT: '#f5bc41',
+    REJECT: '#cb3166',
+    default: '#59caf9',
+}
+
 @Component({
     selector: 'cm-rules',
     templateUrl: './rules.component.html',
@@ -23,20 +29,10 @@ export class RulesComponent extends AutoUnsubscribe implements OnInit {
         this.subscription = [
             this.request_rules$.pipe(
                 switchMap(() => this.api.rules()),
-                tap(res => res.rules.forEach(r => r.color = this.get_color(r.proxy))),
+                tap(res => res.rules.forEach(r => r.color = type_colors[r.proxy] ?? type_colors['default'])),
                 tap(res => this.list.update_origin(res.rules)),
             ).subscribe()
         ]
-    }
-
-    get_color(proxy: string) {
-        if (proxy === 'DIRECT') {
-            return '#f5bc41'
-        } else if (proxy === 'REJECT') {
-            return '#cb3166'
-        } else {
-            return '#59caf9'
-        }
     }
 
     ngOnInit(): void {
