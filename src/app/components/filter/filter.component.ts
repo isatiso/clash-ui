@@ -1,21 +1,26 @@
-import { Component, EventEmitter, OnDestroy, Output } from '@angular/core'
-import { debounceTime, Subject } from 'rxjs'
+import { Component, EventEmitter, Input, OnDestroy, Output } from '@angular/core'
+import { debounceTime, Subject, tap } from 'rxjs'
+import { AutoUnsubscribe } from '../../lib/auto-unsubscribe'
 
 @Component({
     selector: 'cm-filter',
     templateUrl: './filter.component.html',
     styleUrls: ['./filter.component.scss']
 })
-export class FilterComponent implements OnDestroy {
+export class FilterComponent extends AutoUnsubscribe implements OnDestroy {
 
+    @Input() placeholder = 'Filter'
     @Output() change = new EventEmitter<string>()
 
-    $filter_change = new Subject<string>()
-    private filter_subscription = this.$filter_change.pipe(
-        debounceTime(100)
-    ).subscribe(res => this.change.emit(res))
+    change$ = new Subject<string>()
 
-    ngOnDestroy() {
-        this.filter_subscription.unsubscribe()
+    constructor() {
+        super()
+        this.subscription = [
+            this.change$.pipe(
+                debounceTime(200),
+                tap(res => this.change.emit(res)),
+            ).subscribe(),
+        ]
     }
 }

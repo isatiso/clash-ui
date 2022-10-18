@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
-import { Subject, switchMap } from 'rxjs'
+import { Subject, switchMap, tap } from 'rxjs'
+import { AutoUnsubscribe } from '../../lib/auto-unsubscribe'
 import { FilterArray } from '../../lib/filter'
 import { ApiService, RuleDef } from '../../services/api.service'
 
@@ -8,22 +9,24 @@ import { ApiService, RuleDef } from '../../services/api.service'
     templateUrl: './rules.component.html',
     styleUrls: ['./rules.component.scss']
 })
-export class RulesComponent implements OnInit {
+export class RulesComponent extends AutoUnsubscribe implements OnInit {
 
     list = new FilterArray<RuleDef>(
         (key, obj) => obj.payload.indexOf(key) !== -1)
 
-    request_rules = new Subject()
-    request_rules_subscription = this.request_rules.pipe(
-        switchMap(() => this.api.rules()),
-    ).subscribe(res => {
-        res.rules.forEach(r => r.color = this.get_color(r.proxy))
-        this.list.update_origin(res.rules)
-    })
+    request_rules$ = new Subject()
 
     constructor(
         public api: ApiService,
     ) {
+        super()
+        this.subscription = [
+            this.request_rules$.pipe(
+                switchMap(() => this.api.rules()),
+                tap(res => res.rules.forEach(r => r.color = this.get_color(r.proxy))),
+                tap(res => this.list.update_origin(res.rules)),
+            ).subscribe()
+        ]
     }
 
     get_color(proxy: string) {
@@ -37,11 +40,6 @@ export class RulesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.request_rules.next(null)
+        this.request_rules$.next(null)
     }
-
-    ngOnDestroy() {
-        this.request_rules_subscription.unsubscribe()
-    }
-
 }

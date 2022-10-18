@@ -5,11 +5,11 @@
     </mat-hint>
     <form [formGroup]="form" action="">
         <mat-form-field appearance="standard" style="width: 70%">
-            <mat-label>Backend URL</mat-label>
+            <mat-label>{{ 'backend.url' | translate }}</mat-label>
             <input formControlName="url" matInput>
         </mat-form-field>
         <mat-form-field appearance="standard" style="width: 20%; margin-left: 10px;">
-            <mat-label>Secret(Optional)</mat-label>
+            <mat-label>{{ 'backend.secret' | translate }}</mat-label>
             <input formControlName="secret" matInput>
         </mat-form-field>
     </form>

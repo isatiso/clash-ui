@@ -104,29 +104,23 @@ export class ApiService {
     }
 
     proxies() {
-        return this._http.get<{ proxies: Record<string, ProxyItem> }>(`${this._backend.http_url}/proxies`,
-            { headers: { 'Authorization': `Bearer ${this._backend.backend.secret}` } })
+        return this._http.get<{ proxies: Record<string, ProxyItem> }>(`${this._backend.http_url}/proxies`)
     }
 
     switch_proxies(group: string, name: string) {
-        return this._http.put(`${this._backend.http_url}/proxies/${group}`, { name },
-            { headers: { 'Authorization': `Bearer ${this._backend.backend.secret}` } })
+        return this._http.put(`${this._backend.http_url}/proxies/${group}`, { name })
     }
 
     rules() {
-        return this._http.get<{ rules: RuleDef[] }>(`${this._backend.http_url}/rules`,
-            { headers: { 'Authorization': `Bearer ${this._backend.backend.secret}` } })
+        return this._http.get<{ rules: RuleDef[] }>(`${this._backend.http_url}/rules`)
     }
 
     version() {
-        return this._http.get<{ version: string }>(`${this._backend.http_url}/version`,
-            { headers: { 'Authorization': `Bearer ${this._backend.backend.secret}` } })
+        return this._http.get<{ version: string }>(`${this._backend.http_url}/version`)
     }
 
     configs() {
-        return this._http.get<Config>(`${this._backend.http_url}/configs`,
-            { headers: { 'Authorization': `Bearer ${this._backend.backend.secret}` } }
-        ).pipe(
+        return this._http.get<Config>(`${this._backend.http_url}/configs`).pipe(
             map(res => Object.entries(res).map(([k, v]) => [k.replace(/-/g, '_'), v])),
             map(entries => Object.fromEntries(entries) as Config)
         )
@@ -134,7 +128,6 @@ export class ApiService {
 
     update_config(config: Partial<Config>) {
         const new_config = Object.fromEntries(Object.keys(config).map(k => [k.replace(/_/g, '-'), config[k as keyof Config]]))
-        return this._http.patch<void>(`${this._backend.http_url}/configs`, new_config,
-            { headers: { 'Authorization': `Bearer ${this._backend.backend.secret}` } })
+        return this._http.patch<void>(`${this._backend.http_url}/configs`, new_config)
     }
 }

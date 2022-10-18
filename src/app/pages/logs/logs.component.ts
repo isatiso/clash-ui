@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core'
+import { Component } from '@angular/core'
 import { LogType } from '../../services/api.service'
 import { LogsService } from '../../services/logs.service'
 
@@ -7,14 +7,11 @@ import { LogsService } from '../../services/logs.service'
     templateUrl: './logs.component.html',
     styleUrls: ['./logs.component.scss']
 })
-export class LogsComponent implements OnInit {
+export class LogsComponent {
 
     constructor(
         public logs: LogsService,
     ) {
-    }
-
-    ngOnInit(): void {
     }
 
     log_level_color(type: LogType['type']) {

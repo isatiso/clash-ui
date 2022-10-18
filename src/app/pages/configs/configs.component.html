@@ -64,7 +64,7 @@
                 <label class="label" for="switch-backend">Switch Backend</label>
                 <div id="switch-backend" style="display: flex; justify-content: flex-start; align-items: center; gap: 15px;">
                     <span style="font-size: 16px;">{{ backend.backend.host }}</span>
-                    <button (click)="this.$switch_backend.next(null)" color="default" mat-raised-button>切换</button>
+                    <button (click)="this.switch_backend$.next(null)" color="default" mat-raised-button>切换</button>
                 </div>
             </div>
         </div>

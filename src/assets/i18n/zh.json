@@ -13,5 +13,9 @@
     "settings": "配置",
     "logs": "日志",
     "active": "活动的",
-    "closed": "已断开"
+    "closed": "已断开",
+    "backend": {
+        "url": "Clash 地址",
+        "secret": "令牌（可选）"
+    }
 }

@@ -1,5 +1,5 @@
 import { ScrollingModule } from '@angular/cdk/scrolling'
-import { HttpClient, HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button'
@@ -28,6 +28,7 @@ import { BackendComponent } from './components/backend/backend.component'
 import { BodyComponent } from './components/body/body.component'
 import { FilterComponent } from './components/filter/filter.component'
 import { HeaderComponent } from './components/header/header.component'
+import { SecretInterceptor } from './interceptors/secret-interceptor'
 import { ChartSampleComponent } from './pages/configs/chart-sample/chart-sample.component'
 import { ConfigsComponent } from './pages/configs/configs.component'
 import { LogsComponent } from './pages/logs/logs.component'
@@ -57,20 +58,25 @@ import { RulesComponent } from './pages/rules/rules.component'
         BrowserModule,
         AppRoutingModule,
         BrowserAnimationsModule,
-        HttpClientModule,
-        MatSidenavModule,
-        MatListModule,
-        MatRippleModule,
-        MatIconModule,
-        MatButtonModule,
-        MatDialogModule,
-        ScrollingModule,
-        MatTableModule,
-        MatButtonToggleModule,
         FormsModule,
-        MatSlideToggleModule,
+        HttpClientModule,
+        MatButtonModule,
+        MatButtonToggleModule,
         MatChipsModule,
+        MatDialogModule,
+        MatFormFieldModule,
+        MatIconModule,
+        MatInputModule,
+        MatListModule,
+        MatMenuModule,
+        MatRippleModule,
+        MatSelectModule,
+        MatSidenavModule,
+        MatSlideToggleModule,
+        MatTableModule,
+        MatToolbarModule,
         ReactiveFormsModule,
+        ScrollingModule,
         TranslateModule.forRoot({
             defaultLanguage: 'en',
             loader: {
@@ -79,13 +85,10 @@ import { RulesComponent } from './pages/rules/rules.component'
                 deps: [HttpClient]
             }
         }),
-        MatMenuModule,
-        MatToolbarModule,
-        MatFormFieldModule,
-        MatInputModule,
-        MatSelectModule,
     ],
-    providers: [],
+    providers: [
+        { provide: HTTP_INTERCEPTORS, useClass: SecretInterceptor, multi: true },
+    ],
     bootstrap: [AppComponent]
 })
 export class AppModule {

@@ -1,5 +1,7 @@
 import { AfterViewInit, Component } from '@angular/core'
 import { Chart, registerables } from 'chart.js'
+import { tap } from 'rxjs'
+import { AutoUnsubscribe } from '../../lib/auto-unsubscribe'
 import { chart_styles, common_chart_options, common_dataset_props } from '../../lib/chart-lib'
 import { seconds_to_str } from '../../lib/seconds-to-str'
 import { ConfigsService } from '../../services/configs.service'
@@ -13,18 +15,23 @@ Chart.register(...registerables)
     templateUrl: './overview.component.html',
     styleUrls: ['./overview.component.scss']
 })
-export class OverviewComponent implements AfterViewInit {
+export class OverviewComponent extends AutoUnsubscribe implements AfterViewInit {
 
     public table: 'active' | 'closed' = 'active'
     private chart_ctx?: CanvasRenderingContext2D
     private chart?: Chart
-    private update_subscription = this.traffic.$update.subscribe(() => this.chart?.update())
 
     constructor(
         public configs: ConfigsService,
         public traffic: TrafficService,
         public connections: ConnectionsService,
     ) {
+        super()
+        this.subscription = [
+            this.traffic.$update.pipe(
+                tap(() => this.chart?.update()),
+            ).subscribe()
+        ]
     }
 
     seconds_to_str(seconds: number) {
@@ -59,8 +66,8 @@ export class OverviewComponent implements AfterViewInit {
         })
     }
 
-    ngOnDestroy() {
-        this.update_subscription.unsubscribe()
+    override ngOnDestroy() {
+        super.ngOnDestroy()
         this.chart?.destroy()
     }
 }

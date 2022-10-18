@@ -2,6 +2,7 @@ import { Component, OnDestroy, OnInit } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
 import { TranslateService } from '@ngx-translate/core'
 import { Subject, switchMap } from 'rxjs'
+import { AutoUnsubscribe } from './lib/auto-unsubscribe'
 import { BackendService } from './services/backend.service'
 import { ConfigsService } from './services/configs.service'
 import { ConnectionsService } from './services/connections.service'
@@ -11,13 +12,11 @@ import { ConnectionsService } from './services/connections.service'
     templateUrl: './app.component.html',
     styleUrls: ['./app.component.scss']
 })
-export class AppComponent implements OnInit, OnDestroy {
+export class AppComponent extends AutoUnsubscribe implements OnInit, OnDestroy {
+
     title: any = 'clash-material'
 
     $switch_backend = new Subject()
-    switch_backend_subscription = this.$switch_backend.pipe(
-        switchMap(() => this.backend.switch()),
-    ).subscribe()
 
     constructor(
         private dialog: MatDialog,
@@ -26,14 +25,16 @@ export class AppComponent implements OnInit, OnDestroy {
         public configs: ConfigsService,
         public backend: BackendService,
     ) {
+        super()
+        this.subscription = [
+            this.$switch_backend.pipe(
+                switchMap(() => this.backend.switch()),
+            ).subscribe()
+        ]
         translate.setDefaultLang(configs.language)
     }
 
     ngOnInit() {
         this.connections.init()
-    }
-
-    ngOnDestroy() {
-        this.switch_backend_subscription.unsubscribe()
     }
 }
