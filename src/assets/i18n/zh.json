@@ -18,5 +18,9 @@
         "switch": "更改 Clash 地址",
         "url": "Clash 地址",
         "secret": "令牌（可选）"
+    },
+    "common": {
+        "confirm": "确定",
+        "cancel": "取消"
     }
 }

@@ -1,6 +1,6 @@
 :host {
     display: block;
-    padding: 10px 0;
+    cursor: pointer;
 }
 
 .header {
@@ -11,10 +11,10 @@
     max-width: 900px;
     min-width: 400px;
     gap: 5px;
+    height: 60px;
 
     .title {
         font-size: 24px;
-        padding-left: 40px;
     }
 
     .type {

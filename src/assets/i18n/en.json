@@ -17,5 +17,9 @@
         "switch": "Switch Backend",
         "url": "Clash Address",
         "secret": "Secret(Optional)"
+    },
+    "common": {
+        "confirm": "Confirm",
+        "cancel": "Cancel"
     }
 }

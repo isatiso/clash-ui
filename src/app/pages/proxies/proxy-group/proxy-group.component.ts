@@ -1,4 +1,4 @@
-import { Component, Input } from '@angular/core'
+import { Component, HostListener, Input } from '@angular/core'
 import { Subject, switchMap, tap } from 'rxjs'
 import { AutoUnsubscribe } from '../../../lib/auto-unsubscribe'
 import { ApiService } from '../../../services/api.service'
@@ -14,8 +14,13 @@ export class ProxyGroupComponent extends AutoUnsubscribe {
     @Input() group?: string
 
     expand = false
-
     switch_proxy$ = new Subject<{ group: string, name: string }>()
+
+    @HostListener('click', ['$event'])
+    on_click = (event: Event) => {
+        console.log(event)
+        this.expand = !this.expand
+    }
 
     constructor(
         public api: ApiService,
@@ -28,5 +33,9 @@ export class ProxyGroupComponent extends AutoUnsubscribe {
                 tap(() => this.proxies.$request.next(null)),
             ).subscribe()
         ]
+    }
+
+    speed_test(event: Event) {
+        event.stopPropagation()
     }
 }

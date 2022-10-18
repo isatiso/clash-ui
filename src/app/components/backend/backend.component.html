@@ -18,6 +18,6 @@
     </form>
 </div>
 <div [align]="'end'" mat-dialog-actions>
-    <button (click)="ref.close()" mat-button>Close</button>
-    <button (click)="check$.next(null)" [disabled]="form.status !== 'VALID'" color="primary" mat-raised-button>Add</button>
+    <button (click)="ref.close()" mat-button>{{ 'common.cancel' | translate }}</button>
+    <button (click)="check$.next(null)" [disabled]="form.status !== 'VALID'" color="primary" mat-raised-button>{{ 'common.confirm' | translate }}</button>
 </div>

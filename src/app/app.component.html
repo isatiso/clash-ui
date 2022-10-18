@@ -8,7 +8,7 @@
 
         <div class="action">
             <button mat-button (click)="$switch_backend.next(null)">{{ backend.backend.host }}</button>
-            <button mat-button routerLink="/configs">设置</button>
+            <button mat-button routerLink="/configs">{{ 'settings' | translate }}</button>
             <button [matMenuTriggerFor]="language" aria-label="Change Language" mat-icon-button>
                 <mat-icon>translate</mat-icon>
             </button>
@@ -39,4 +39,9 @@
         </div>
     </mat-toolbar>
     <router-outlet></router-outlet>
+    <div class="float-button">
+        <button mat-fab>
+            <mat-icon>add</mat-icon>
+        </button>
+    </div>
 </div>

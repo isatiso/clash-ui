@@ -36,7 +36,8 @@ import { OverviewComponent } from './pages/overview/overview.component'
 import { TrafficCardComponent } from './pages/overview/traffic-card/traffic-card.component'
 import { ProxiesComponent } from './pages/proxies/proxies.component'
 import { ProxyGroupComponent } from './pages/proxies/proxy-group/proxy-group.component'
-import { RulesComponent } from './pages/rules/rules.component'
+import { RulesComponent } from './pages/rules/rules.component';
+import { FloatActionComponent } from './components/float-action/float-action.component'
 
 @NgModule({
     declarations: [
@@ -53,6 +54,7 @@ import { RulesComponent } from './pages/rules/rules.component'
         ProxyGroupComponent,
         RulesComponent,
         TrafficCardComponent,
+        FloatActionComponent,
     ],
     imports: [
         BrowserModule,
