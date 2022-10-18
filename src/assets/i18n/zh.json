@@ -15,6 +15,7 @@
     "active": "活动的",
     "closed": "已断开",
     "backend": {
+        "switch": "更改 Clash 地址",
         "url": "Clash 地址",
         "secret": "令牌（可选）"
     }

@@ -14,6 +14,7 @@
     "active": "Active",
     "closed": "Closed",
     "backend": {
+        "switch": "Switch Backend",
         "url": "Clash Address",
         "secret": "Secret(Optional)"
     }

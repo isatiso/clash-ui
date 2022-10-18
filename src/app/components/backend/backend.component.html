@@ -1,6 +1,9 @@
 <div mat-dialog-title>{{ 'backend.switch' | translate }}</div>
 <div mat-dialog-content>
-    <mat-hint *ngIf="form.controls.url.errors">
+    <mat-error *ngIf="connect_result">
+        {{ connect_result }}{{ form.status }}
+    </mat-error>
+    <mat-hint *ngIf="!connect_result && form.controls.url.errors">
         {{ form.controls.url.errors['msg'] }}
     </mat-hint>
     <form [formGroup]="form" action="">
@@ -16,5 +19,5 @@
 </div>
 <div [align]="'end'" mat-dialog-actions>
     <button (click)="ref.close()" mat-button>Close</button>
-    <button (click)="finish()" color="primary" mat-raised-button>Add</button>
+    <button (click)="check$.next(null)" [disabled]="form.status !== 'VALID'" color="primary" mat-raised-button>Add</button>
 </div>

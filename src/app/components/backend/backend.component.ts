@@ -2,7 +2,7 @@ import { HttpClient } from '@angular/common/http'
 import { Component, Inject, OnDestroy } from '@angular/core'
 import { AbstractControl, FormBuilder } from '@angular/forms'
 import { MAT_DIALOG_DATA, MatDialogRef } from '@angular/material/dialog'
-import { Subject, switchMap, tap, throttle, throttleTime } from 'rxjs'
+import { catchError, filter, of, Subject, switchMap, tap, throttleTime } from 'rxjs'
 import { AutoUnsubscribe } from '../../lib/auto-unsubscribe'
 import { BackendService, BackendType } from '../../services/backend.service'
 
@@ -25,8 +25,10 @@ export class BackendComponent extends AutoUnsubscribe implements OnDestroy {
             }
         }]
     })
-    private url?: BackendType
+
+    connect_result = ''
     check$ = new Subject()
+    private url?: BackendType
 
     constructor(
         private _backend: BackendService,
@@ -43,19 +45,22 @@ export class BackendComponent extends AutoUnsubscribe implements OnDestroy {
         })
         this.subscription = [
             this.form.controls.url.valueChanges.pipe(
-                tap(v => this.url = this._backend.parse(v))
+                tap(v => this.url = this._backend.parse(v)),
+                tap(() => this.connect_result = '')
+            ).subscribe(),
+            this.form.controls.secret.valueChanges.pipe(
+                tap(() => this.connect_result = '')
             ).subscribe(),
             this.check$.pipe(
                 throttleTime(500),
-                switchMap(() => this._http.get(`${this._backend.http_url}/version`))
+                switchMap(() => this._http.get(`${this._backend.http_url}/version`,
+                    { headers: { 'Authorization': `Bearer ${this.form.controls.secret.value}` } })),
+                catchError((_, caught) => {
+                    this.connect_result = 'cannot connect to the address'
+                    return caught
+                }),
+                tap(() => this.ref.close({ ...this.url!, secret: this.form.controls.secret.value }))
             ).subscribe(),
         ]
-    }
-
-    finish() {
-        if (!this.url) {
-            return
-        }
-        this.ref.close({ ...this.url, secret: this.form.controls.secret.value })
     }
 }
