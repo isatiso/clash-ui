@@ -53,7 +53,7 @@ export class BackendComponent extends AutoUnsubscribe implements OnDestroy {
             ).subscribe(),
             this.check$.pipe(
                 throttleTime(500),
-                switchMap(() => this._http.get(`${this._backend.http_url}/version`, { headers: { 'Authorization': `Bearer ${this.form.controls.secret.value}` } })),
+                switchMap(() => this._http.get(`${this.form.controls.url.value}/version`, { headers: { 'Authorization': `Bearer ${this.form.controls.secret.value}` } })),
                 catchError((_, caught) => (this.connect_result = 'cannot connect to the address') && caught),
                 tap(() => this.ref.close({ ...this.url!, secret: this.form.controls.secret.value }))
             ).subscribe(),
