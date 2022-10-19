@@ -1,0 +1,7 @@
+<div mat-dialog-title>{{ 'common.warning' | translate }}</div>
+<div mat-dialog-content>
+    {{ data.msg_id | translate }}
+</div>
+<div [align]="'end'" mat-dialog-actions>
+    <button color="warn" mat-raised-button [mat-dialog-close]="data.pass ?? true">{{ 'common.confirm' | translate }}</button>
+</div>

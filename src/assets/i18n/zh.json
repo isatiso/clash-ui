@@ -9,7 +9,6 @@
     },
     "proxies": "代理",
     "rules": "规则",
-    "connections": "连接",
     "settings": "配置",
     "logs": "日志",
     "active": "活动的",
@@ -21,6 +20,8 @@
     },
     "common": {
         "confirm": "确定",
-        "cancel": "取消"
+        "cancel": "取消",
+        "warning": "警告",
+        "close-all-connections": "确定要关闭全部连接吗？"
     }
 }

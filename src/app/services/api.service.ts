@@ -119,6 +119,14 @@ export class ApiService {
         return this._http.get<{ version: string }>(`${this._backend.http_url}/version`)
     }
 
+    close_all_connections() {
+        return this._http.delete(`${this._backend.http_url}/connections`)
+    }
+
+    close_connection(id: string) {
+        return this._http.delete(`${this._backend.http_url}/connections/${id}`)
+    }
+
     configs() {
         return this._http.get<Config>(`${this._backend.http_url}/configs`).pipe(
             map(res => Object.entries(res).map(([k, v]) => [k.replace(/-/g, '_'), v])),

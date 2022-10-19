@@ -20,6 +20,8 @@
     },
     "common": {
         "confirm": "Confirm",
-        "cancel": "Cancel"
+        "cancel": "Cancel",
+        "warning": "Warning",
+        "close-all-connections": "This operation will close all the connections, are you sure?"
     }
 }
