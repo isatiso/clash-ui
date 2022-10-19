@@ -1,6 +1,7 @@
+import { isPlatformBrowser } from '@angular/common'
 import { HttpClient } from '@angular/common/http'
-import { Injectable } from '@angular/core'
-import { map } from 'rxjs'
+import { Inject, Injectable, PLATFORM_ID } from '@angular/core'
+import { map, Subject } from 'rxjs'
 import { webSocket, WebSocketSubject } from 'rxjs/webSocket'
 import { ProxyItem } from '../lib/retrieve-group'
 import { BackendService } from './backend.service'
@@ -74,15 +75,19 @@ export class ApiService {
     private _traffic_socket: WebSocketSubject<TrafficData> | undefined
     private _connections_socket: WebSocketSubject<ConnectionsData> | undefined
     private _logs_socket: WebSocketSubject<LogType> | undefined
+    private _is_browser = isPlatformBrowser(this.platform_id)
 
     constructor(
         private _backend: BackendService,
-        private _http: HttpClient
+        private _http: HttpClient,
+        @Inject(PLATFORM_ID) private platform_id: any,
     ) {
-
     }
 
     traffic() {
+        if (!this._is_browser) {
+            return new Subject<TrafficData>()
+        }
         if (!this._traffic_socket) {
             this._traffic_socket = webSocket<TrafficData>(`${this._backend.ws_url}/traffic?token=${this._backend.backend.secret}`)
         }
@@ -90,6 +95,9 @@ export class ApiService {
     }
 
     connections() {
+        if (!this._is_browser) {
+            return new Subject<ConnectionsData>()
+        }
         if (!this._connections_socket) {
             this._connections_socket = webSocket<ConnectionsData>(`${this._backend.ws_url}/connections?token=${this._backend.backend.secret}`)
         }
@@ -97,6 +105,9 @@ export class ApiService {
     }
 
     logs() {
+        if (!this._is_browser) {
+            return new Subject<any>()
+        }
         if (!this._logs_socket) {
             this._logs_socket = webSocket<any>(`${this._backend.ws_url}/logs?token=${this._backend.backend.secret}`)
         }

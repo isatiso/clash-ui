@@ -17,18 +17,20 @@ import { MatSidenavModule } from '@angular/material/sidenav'
 import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatTableModule } from '@angular/material/table'
 import { MatToolbarModule } from '@angular/material/toolbar'
-import { BrowserModule } from '@angular/platform-browser'
+import { BrowserModule, TransferState } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
-import { TranslateHttpLoader } from '@ngx-translate/http-loader'
 
 import { AppRoutingModule } from './app-routing.module'
 import { AppComponent } from './app.component'
 import { BackendComponent } from './components/backend/backend.component'
 import { BodyComponent } from './components/body/body.component'
 import { FilterComponent } from './components/filter/filter.component'
+import { FloatActionComponent } from './components/float-action/float-action.component'
 import { HeaderComponent } from './components/header/header.component'
+import { WarningComponent } from './components/warning/warning.component'
 import { SecretInterceptor } from './interceptors/secret-interceptor'
+import { translateBrowserLoaderFactory } from './loaders/translate-browser.loader'
 import { ChartSampleComponent } from './pages/configs/chart-sample/chart-sample.component'
 import { ConfigsComponent } from './pages/configs/configs.component'
 import { LogsComponent } from './pages/logs/logs.component'
@@ -36,9 +38,7 @@ import { OverviewComponent } from './pages/overview/overview.component'
 import { TrafficCardComponent } from './pages/overview/traffic-card/traffic-card.component'
 import { ProxiesComponent } from './pages/proxies/proxies.component'
 import { ProxyGroupComponent } from './pages/proxies/proxy-group/proxy-group.component'
-import { RulesComponent } from './pages/rules/rules.component';
-import { FloatActionComponent } from './components/float-action/float-action.component';
-import { WarningComponent } from './components/warning/warning.component'
+import { RulesComponent } from './pages/rules/rules.component'
 
 @NgModule({
     declarations: [
@@ -59,7 +59,7 @@ import { WarningComponent } from './components/warning/warning.component'
         WarningComponent,
     ],
     imports: [
-        BrowserModule,
+        BrowserModule.withServerTransition({ appId: 'serverApp' }),
         AppRoutingModule,
         BrowserAnimationsModule,
         FormsModule,
@@ -82,11 +82,10 @@ import { WarningComponent } from './components/warning/warning.component'
         ReactiveFormsModule,
         ScrollingModule,
         TranslateModule.forRoot({
-            defaultLanguage: 'en',
             loader: {
                 provide: TranslateLoader,
-                useFactory: (http: HttpClient) => new TranslateHttpLoader(http),
-                deps: [HttpClient]
+                useFactory: translateBrowserLoaderFactory,
+                deps: [HttpClient, TransferState]
             }
         }),
     ],

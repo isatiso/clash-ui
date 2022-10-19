@@ -1,4 +1,5 @@
-import { Injectable } from '@angular/core'
+import { DOCUMENT } from '@angular/common'
+import { Inject, Injectable } from '@angular/core'
 import { debounceTime, Subject, switchMap } from 'rxjs'
 import { ApiService, Config } from './api.service'
 import { BackendService } from './backend.service'
@@ -15,12 +16,13 @@ export class ConfigsService {
         private _api: ApiService,
         private _backend: BackendService,
         private _local: LocalService,
+        @Inject(DOCUMENT) private document: Document,
     ) {
         this._chart_style = this._local.get('chart_style') ?? 0
         this._language = this._local.get('lang') ?? 'en'
         this._theme = this._local.get('theme') ?? 'dark'
         this._speed_url = this._local.get('speed_url') ?? 'http://www.gstatic.com/generate_204'
-        document.getElementById('body')?.setAttribute('data-theme', this._theme)
+        this.document.getElementById('body')?.setAttribute('data-theme', this._theme)
         this.$update.pipe(
             debounceTime(300),
             switchMap(data => this._api.update_config(data))
@@ -63,7 +65,7 @@ export class ConfigsService {
     }
 
     set theme(value: LocalStorageType['theme']) {
-        document.getElementById('body')?.setAttribute('data-theme', value)
+        this.document.getElementById('body')?.setAttribute('data-theme', value)
         this._local.set('theme', value)
         this._theme = value
     }

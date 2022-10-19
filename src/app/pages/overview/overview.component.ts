@@ -1,4 +1,5 @@
-import { AfterViewInit, Component } from '@angular/core'
+import { DOCUMENT, isPlatformBrowser } from '@angular/common'
+import { AfterViewInit, Component, Inject, PLATFORM_ID } from '@angular/core'
 import { Chart, registerables } from 'chart.js'
 import { tap } from 'rxjs'
 import { AutoUnsubscribe } from '../../lib/auto-unsubscribe'
@@ -25,6 +26,8 @@ export class OverviewComponent extends AutoUnsubscribe implements AfterViewInit 
         public configs: ConfigsService,
         public traffic: TrafficService,
         public connections: ConnectionsService,
+        @Inject(DOCUMENT) private document: Document,
+        @Inject(PLATFORM_ID) private platform_id: any,
     ) {
         super()
         this.subscription = [
@@ -39,7 +42,10 @@ export class OverviewComponent extends AutoUnsubscribe implements AfterViewInit 
     }
 
     ngAfterViewInit(): void {
-        const canvas = document.getElementById('traffic-chart')! as HTMLCanvasElement
+        if (!isPlatformBrowser(this.platform_id)) {
+            return
+        }
+        const canvas = this.document.getElementById('traffic-chart')! as HTMLCanvasElement
         this.chart_ctx = canvas.getContext('2d')!
         const traffic = this.traffic
         const configs = this.configs

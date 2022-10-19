@@ -1,7 +1,7 @@
-import { AfterViewInit, Component, Input, OnDestroy } from '@angular/core'
+import { DOCUMENT } from '@angular/common'
+import { AfterViewInit, Component, Inject, Input, OnDestroy } from '@angular/core'
 import { Chart } from 'chart.js'
 import { chart_styles, common_chart_options, common_dataset_props } from '../../../lib/chart-lib'
-import { ConfigsService } from '../../../services/configs.service'
 
 @Component({
     selector: 'cm-chart-sample',
@@ -15,8 +15,13 @@ export class ChartSampleComponent implements AfterViewInit, OnDestroy {
     private chart_ctx?: CanvasRenderingContext2D
     private chart?: Chart
 
+    constructor(
+        @Inject(DOCUMENT) private document: Document,
+    ) {
+    }
+
     ngAfterViewInit(): void {
-        const canvas = document.getElementById('chart-' + this.id)! as HTMLCanvasElement
+        const canvas = this.document.getElementById('chart-' + this.id)! as HTMLCanvasElement
         this.chart_ctx = canvas.getContext('2d')!
         this.chart = new Chart(this.chart_ctx!, {
             type: 'line' as const,
