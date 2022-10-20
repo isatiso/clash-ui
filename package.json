@@ -1,5 +1,5 @@
 {
-  "name": "clash-material",
+  "name": "clash-ui",
   "version": "1.5.0",
   "scripts": {
     "ng": "ng",
@@ -7,10 +7,10 @@
     "build": "ng build",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
-    "dev:ssr": "ng run clash-material:serve-ssr",
-    "serve:ssr": "node dist/clash-material/server/main.js",
-    "build:ssr": "ng build && ng run clash-material:server",
-    "prerender": "ng run clash-material:prerender"
+    "dev:ssr": "ng run clash-ui:serve-ssr",
+    "serve:ssr": "node dist/clash-ui/server/main.js",
+    "build:ssr": "ng build && ng run clash-ui:server",
+    "prerender": "ng run clash-ui:prerender"
   },
   "private": true,
   "dependencies": {
