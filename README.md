@@ -6,7 +6,7 @@ WEB UI for clash.
 
 ```bash
 # start a client in the host network mode.
-docker run --network host -d plankroot/clash-material
+docker run --network host -d plankroot/clash-ui
 # open in the browser.
 open http://localhost:4000
 ```

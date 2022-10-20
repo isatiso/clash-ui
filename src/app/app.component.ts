@@ -14,7 +14,7 @@ import { ConnectionsService } from './services/connections.service'
 })
 export class AppComponent extends AutoUnsubscribe implements OnInit, OnDestroy {
 
-    title: any = 'clash-material'
+    title: any = 'clash-ui'
 
     $switch_backend = new Subject()
 
