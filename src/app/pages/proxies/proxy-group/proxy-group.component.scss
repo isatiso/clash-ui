@@ -77,10 +77,24 @@
             color: var(--fg-secondary-text);
         }
 
-        .type {
-            font-size: 13px;
-            color: var(--fg-hint-text);
+        .line-2 {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+
+            .type {
+                font-size: 13px;
+                color: var(--fg-hint-text);
+            }
+
+            .delay {
+                margin-left: auto;
+                font-size: 13px;
+                color: var(--fg-hint-text);
+            }
         }
+
+
     }
 }
 

@@ -30,12 +30,20 @@ export class ProxyGroupComponent extends AutoUnsubscribe {
         this.subscription = [
             this.switch_proxy$.pipe(
                 switchMap(({ group, name }) => this.api.switch_proxies(group, name)),
-                tap(() => this.proxies.$request.next(null)),
+                tap(() => this.proxies.request$.next(null)),
             ).subscribe()
         ]
     }
 
-    speed_test(event: Event) {
-        event.stopPropagation()
+    getLabelColor(delay?: number) {
+        if (!delay) {
+            return '#909399'
+        } else if (delay < 300) {
+            return '#67c23a'
+        } else if (delay < 1000) {
+            return '#d4b75c'
+        } else {
+            return '#e67f3c'
+        }
     }
 }

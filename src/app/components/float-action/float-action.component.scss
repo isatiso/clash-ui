@@ -39,11 +39,20 @@
         }
     }
 
-    .close {
+    .speed {
         z-index: 800;
 
         &.up {
             transform: translateY(-168px);
+            opacity: 1;
+        }
+    }
+
+    .close {
+        z-index: 750;
+
+        &.up {
+            transform: translateY(-224px);
             opacity: 1;
         }
     }

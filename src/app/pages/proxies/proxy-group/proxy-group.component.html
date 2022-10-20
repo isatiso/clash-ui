@@ -5,17 +5,15 @@
         <div class="type">{{ proxies.groups[group].type }}</div>
         <div>{{ proxies.groups[group].now }}</div>
         <div class="count">{{ proxies.groups[group].all?.length ?? 0 }}</div>
-        <div class="switch">
-            <button mat-icon-button (click)="speed_test($event)">
-                <mat-icon>network_check</mat-icon>
-            </button>
-        </div>
     </div>
     <div class="anime-container" [style.height]="expand ? ass.clientHeight + 'px' : 0">
         <div #ass class="proxies-expand">
             <div class="proxy" *ngFor="let name of proxies.groups[group].all" [class.active]="name === proxies.groups[group].now" (click)="switch_proxy$.next({group, name})">
                 <div class="name">{{ proxies.proxies[name].name }}</div>
-                <div class="type">{{ proxies.proxies[name].type }}</div>
+                <div class="line-2">
+                    <div class="type">{{ proxies.proxies[name].type }}</div>
+                    <div class="delay" [style.color]="getLabelColor(proxies.proxies[name].delay)">{{ proxies.proxies[name].delay }}ms</div>
+                </div>
             </div>
         </div>
     </div>

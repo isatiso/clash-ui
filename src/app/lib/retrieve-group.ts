@@ -7,6 +7,7 @@ export type ProxyItem = {
     history: LatencyHistory
     all?: string[]
     now?: string
+    delay?: number
 
     __provider?: string;
 };

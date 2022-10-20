@@ -122,6 +122,10 @@ export class ApiService {
         return this._http.put(`${this._backend.http_url}/proxies/${group}`, { name })
     }
 
+    proxy_delay(name: string, url: string) {
+        return this._http.get<{ delay: number }>(`${this._backend.http_url}/proxies/${name}/delay`, { params: { timeout: 5000, url } })
+    }
+
     rules() {
         return this._http.get<{ rules: RuleDef[] }>(`${this._backend.http_url}/rules`)
     }

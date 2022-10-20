@@ -14,6 +14,6 @@ export class ProxiesComponent implements OnInit {
     }
 
     ngOnInit(): void {
-        this.proxies.$request.next(null)
+        this.proxies.request$.next(null)
     }
 }

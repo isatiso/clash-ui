@@ -1,7 +1,8 @@
 import { Injectable } from '@angular/core'
-import { Subject, switchMap, throttleTime } from 'rxjs'
+import { catchError, forkJoin, mergeMap, of, Subject, switchMap, tap, throttleTime } from 'rxjs'
 import { ProxyItem, retrieve_group } from '../lib/retrieve-group'
 import { ApiService } from './api.service'
+import { ConfigsService } from './configs.service'
 
 @Injectable({
     providedIn: 'root'
@@ -13,12 +14,14 @@ export class ProxiesService {
     public proxies: Record<string, ProxyItem> = {}
     public groups: Record<string, ProxyItem> = {}
 
-    public $request = new Subject()
+    public request$ = new Subject()
+    public speed_test$ = new Subject<string>()
 
     constructor(
         private _api: ApiService,
+        private _configs: ConfigsService,
     ) {
-        this.$request.pipe(
+        this.request$.pipe(
             throttleTime(100),
             switchMap(() => this._api.proxies()),
         ).subscribe(({ proxies }) => {
@@ -26,7 +29,17 @@ export class ProxiesService {
             this.group_names = group_names
             this.proxy_names = proxy_names
             this.groups = Object.fromEntries(this.group_names.map(name => [name, proxies[name]]))
+            proxy_names.forEach(name => proxies[name].delay = proxies[name].history[proxies[name].history.length - 1]?.delay)
             this.proxies = proxies
         })
+        this.speed_test$.pipe(
+            mergeMap(name => forkJoin([of(name), this._api.proxy_delay(name, this._configs.speed_url)]), 5),
+            catchError((err, caught) => caught),
+            tap(([name, res]) => this.proxies[name].delay = res.delay)
+        ).subscribe()
+    }
+
+    speed_test() {
+        this.proxy_names.forEach(name => this.speed_test$.next(name))
     }
 }
