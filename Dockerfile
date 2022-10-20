@@ -1,4 +1,4 @@
-FROM node:16
+FROM node:18-buster-slim
 
 WORKDIR /code
 COPY ./dist/ /code/dist/
