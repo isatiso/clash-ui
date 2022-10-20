@@ -16,9 +16,7 @@ export class ProxyGroupComponent extends AutoUnsubscribe {
     expand = false
     switch_proxy$ = new Subject<{ group: string, name: string }>()
 
-    @HostListener('click', ['$event'])
-    on_click = (event: Event) => {
-        console.log(event)
+    expand_panel(event: Event) {
         this.expand = !this.expand
     }
 

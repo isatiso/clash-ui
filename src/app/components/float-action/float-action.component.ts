@@ -1,5 +1,6 @@
 import { Component, OnInit } from '@angular/core'
 import { MatDialog } from '@angular/material/dialog'
+import { MatSnackBar } from '@angular/material/snack-bar'
 import { TranslateService } from '@ngx-translate/core'
 import { filter, Subject, switchMap, tap, throttleTime } from 'rxjs'
 import { AutoUnsubscribe } from '../../lib/auto-unsubscribe'
@@ -18,8 +19,10 @@ export class FloatActionComponent extends AutoUnsubscribe implements OnInit {
     expand = false
     close$ = new Subject()
     network_check$ = new Subject()
+    network_checking = false
 
     constructor(
+        private _snack: MatSnackBar,
         private _api: ApiService,
         private _proxies: ProxiesService,
         public dialog: MatDialog,
@@ -36,7 +39,12 @@ export class FloatActionComponent extends AutoUnsubscribe implements OnInit {
             ).subscribe(),
             this.network_check$.pipe(
                 throttleTime(1000),
+                tap(() => this.network_checking = true),
                 tap(() => this._proxies.speed_test())
+            ).subscribe(),
+            this._proxies.speed_test_finish$.pipe(
+                tap(() => this.network_checking = false),
+                tap(() => this._snack.open('speed test complete.', 'OK', { duration: 5000 })),
             ).subscribe(),
         ]
     }

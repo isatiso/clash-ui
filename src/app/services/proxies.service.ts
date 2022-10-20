@@ -1,5 +1,5 @@
 import { Injectable } from '@angular/core'
-import { catchError, forkJoin, mergeMap, of, Subject, switchMap, tap, throttleTime } from 'rxjs'
+import { catchError, debounceTime, forkJoin, mergeMap, of, Subject, switchMap, tap, throttleTime } from 'rxjs'
 import { ProxyItem, retrieve_group } from '../lib/retrieve-group'
 import { ApiService } from './api.service'
 import { ConfigsService } from './configs.service'
@@ -16,6 +16,7 @@ export class ProxiesService {
 
     public request$ = new Subject()
     public speed_test$ = new Subject<string>()
+    public speed_test_finish$ = new Subject()
 
     constructor(
         private _api: ApiService,
@@ -35,7 +36,9 @@ export class ProxiesService {
         this.speed_test$.pipe(
             mergeMap(name => forkJoin([of(name), this._api.proxy_delay(name, this._configs.speed_url)]), 5),
             catchError((err, caught) => caught),
-            tap(([name, res]) => this.proxies[name].delay = res.delay)
+            tap(([name, res]) => this.proxies[name].delay = res.delay),
+            debounceTime(5000),
+            tap(() => this.speed_test_finish$.next(null))
         ).subscribe()
     }
 

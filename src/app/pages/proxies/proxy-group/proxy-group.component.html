@@ -1,10 +1,12 @@
 <div *ngIf="group">
-    <div class="header">
-        <mat-icon class="expand-icon" [class.rotated]="!expand" style="margin-left: 40px;">expand_more</mat-icon>
-        <div class="title">{{ proxies.groups[group].name }}</div>
-        <div class="type">{{ proxies.groups[group].type }}</div>
-        <div>{{ proxies.groups[group].now }}</div>
-        <div class="count">{{ proxies.groups[group].all?.length ?? 0 }}</div>
+    <div class="header" (click)="expand_panel($event)">
+        <div class="inner-header">
+            <mat-icon class="expand-icon" [class.rotated]="!expand" style="margin-left: 40px;">expand_more</mat-icon>
+            <div class="title">{{ proxies.groups[group].name }}</div>
+            <div class="type">{{ proxies.groups[group].type }}</div>
+            <div>{{ proxies.groups[group].now }}</div>
+            <div class="count">{{ proxies.groups[group].all?.length ?? 0 }}</div>
+        </div>
     </div>
     <div class="anime-container" [style.height]="expand ? ass.clientHeight + 'px' : 0">
         <div #ass class="proxies-expand">

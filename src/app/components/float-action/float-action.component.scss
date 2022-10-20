@@ -46,6 +46,22 @@
             transform: translateY(-168px);
             opacity: 1;
         }
+
+        button.loading {
+            animation: loading_keyframes 2s linear infinite;
+        }
+
+        @keyframes loading_keyframes {
+            0% {
+                background: var(--accent-color);
+            }
+            50% {
+                background: var(--bg-focused-button);
+            }
+            100% {
+                background: var(--accent-color);
+            }
+        }
     }
 
     .close {
@@ -57,3 +73,23 @@
         }
     }
 }
+
+//
+//@keyframes network-checking {
+//
+//    from {
+//        opacity: 0;
+//        background-image: url(image-1.jpg);
+//    }
+//
+//    50% {
+//        opacity: 1;
+//        background-image: url(image-1.jpg);
+//    }
+//
+//    to {
+//        opacity: 0;
+//        background-image: url(image-1.jpg);
+//    }
+//
+//}

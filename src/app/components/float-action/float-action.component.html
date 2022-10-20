@@ -20,7 +20,7 @@
     </button>
 </div>
 <div [class.up]="expand" class="speed hidden">
-    <button aria-label="Change Mode" color="default" (click)="network_check$.next(null)" mat-mini-fab>
+    <button aria-label="Change Mode" [class.loading]="network_checking" (click)="network_check$.next(null)" mat-mini-fab>
         <mat-icon>network_check</mat-icon>
     </button>
 </div>
