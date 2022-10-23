@@ -1,9 +1,11 @@
+import { Injectable } from '@angular/core'
 import { makeStateKey, StateKey, TransferState } from '@angular/platform-browser'
 import { TranslateLoader } from '@ngx-translate/core'
 import * as fs from 'fs'
 import { join } from 'path'
 import { Observable } from 'rxjs'
 
+@Injectable()
 export class TranslateServerLoader implements TranslateLoader {
 
     constructor(
@@ -38,8 +40,4 @@ export class TranslateServerLoader implements TranslateLoader {
             observer.complete()
         })
     }
-}
-
-export function translateServerLoaderFactory(transferState: TransferState) {
-    return new TranslateServerLoader(transferState)
 }

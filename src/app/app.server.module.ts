@@ -1,11 +1,10 @@
 import { NgModule } from '@angular/core'
-import { TransferState } from '@angular/platform-browser'
 import { ServerModule } from '@angular/platform-server'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
+import { AppComponent } from './app.component'
 
 import { AppModule } from './app.module'
-import { AppComponent } from './app.component'
-import { translateServerLoaderFactory } from './loaders/translate-server.loader'
+import { TranslateServerLoader } from './loaders/translate-server.loader'
 
 @NgModule({
     imports: [
@@ -14,8 +13,7 @@ import { translateServerLoaderFactory } from './loaders/translate-server.loader'
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
-                useFactory: translateServerLoaderFactory,
-                deps: [TransferState]
+                useClass: TranslateServerLoader
             }
         })
     ],

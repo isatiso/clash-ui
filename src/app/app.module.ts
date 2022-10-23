@@ -1,5 +1,5 @@
 import { ScrollingModule } from '@angular/cdk/scrolling'
-import { HTTP_INTERCEPTORS, HttpClient, HttpClientModule } from '@angular/common/http'
+import { HTTP_INTERCEPTORS, HttpClientModule } from '@angular/common/http'
 import { NgModule } from '@angular/core'
 import { FormsModule, ReactiveFormsModule } from '@angular/forms'
 import { MatButtonModule } from '@angular/material/button'
@@ -18,7 +18,7 @@ import { MatSlideToggleModule } from '@angular/material/slide-toggle'
 import { MatSnackBarModule } from '@angular/material/snack-bar'
 import { MatTableModule } from '@angular/material/table'
 import { MatToolbarModule } from '@angular/material/toolbar'
-import { BrowserModule, TransferState } from '@angular/platform-browser'
+import { BrowserModule } from '@angular/platform-browser'
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations'
 import { TranslateLoader, TranslateModule } from '@ngx-translate/core'
 
@@ -31,7 +31,7 @@ import { FloatActionComponent } from './components/float-action/float-action.com
 import { HeaderComponent } from './components/header/header.component'
 import { WarningComponent } from './components/warning/warning.component'
 import { SecretInterceptor } from './interceptors/secret-interceptor'
-import { translateBrowserLoaderFactory } from './loaders/translate-browser.loader'
+import { TranslateBrowserLoader } from './loaders/translate-browser.loader'
 import { ChartSampleComponent } from './pages/configs/chart-sample/chart-sample.component'
 import { ConfigsComponent } from './pages/configs/configs.component'
 import { LogsComponent } from './pages/logs/logs.component'
@@ -86,8 +86,7 @@ import { RulesComponent } from './pages/rules/rules.component'
         TranslateModule.forRoot({
             loader: {
                 provide: TranslateLoader,
-                useFactory: translateBrowserLoaderFactory,
-                deps: [HttpClient, TransferState]
+                useClass: TranslateBrowserLoader
             }
         }),
     ],
