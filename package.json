@@ -5,7 +5,7 @@
     "ng": "ng",
     "start": "ng serve",
     "build": "ng build",
-    "build-pages": "ng build -c production --output-path docs --base-href /clash-ui",
+    "build-pages": "ng build -c production --output-path docs --base-href /clash-ui/",
     "watch": "ng build --watch --configuration development",
     "test": "ng test",
     "dev:ssr": "ng run clash-ui:serve-ssr",
