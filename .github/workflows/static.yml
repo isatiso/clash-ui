@@ -43,6 +43,7 @@ jobs:
       - run: |
           yarn install
           yarn build-pages
+          cp index.html 404.html
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
