@@ -42,7 +42,7 @@ jobs:
           node-version: ${{ matrix.node-version }}
       - run: |
           yarn install
-          yarn build-docs
+          yarn build-pages
       - name: Setup Pages
         uses: actions/configure-pages@v2
       - name: Upload artifact
