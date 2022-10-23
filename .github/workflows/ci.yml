@@ -53,7 +53,16 @@ jobs:
           context: .
           platforms: linux/amd64,linux/arm64,linux/arm/v7
           push: true
-          tags: plankroot/clash-ui:latest,plankroot/clash-ui:${{ env.CLASH_VERSION }}
+          target: ssr
+          tags: plankroot/clash-ui:latest,plankroot/clash-ui:ssr-latest,plankroot/clash-ui:ssr-${{ env.CLASH_VERSION }}
+
+      - name: Build and push
+        uses: docker/build-push-action@v3
+        with:
+          context: .
+          platforms: linux/amd64,linux/arm64,linux/arm/v7
+          push: true
+          tags: plankroot/clash-ui:nginx-latest,plankroot/clash-ui:nginx-${{ env.CLASH_VERSION }}
 
       - run: |
           git add .
