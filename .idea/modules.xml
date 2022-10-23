@@ -2,7 +2,7 @@
 <project version="4">
   <component name="ProjectModuleManager">
     <modules>
-      <module fileurl="file://$PROJECT_DIR$/.idea/clash-material.iml" filepath="$PROJECT_DIR$/.idea/clash-material.iml" />
+      <module fileurl="file://$PROJECT_DIR$/.idea/clash-ui.iml" filepath="$PROJECT_DIR$/.idea/clash-ui.iml" />
     </modules>
   </component>
 </project>
