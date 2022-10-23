@@ -42,7 +42,7 @@ export class FloatActionComponent extends AutoUnsubscribe implements OnInit {
                 tap(() => this.network_checking = true),
                 tap(() => this._proxies.speed_test())
             ).subscribe(),
-            this._proxies.speed_test_finish$.pipe(
+            this._proxies.single_test_finish$.pipe(
                 tap(() => this.network_checking = false),
                 tap(() => this._snack.open('speed test complete.', 'OK', { duration: 5000 })),
             ).subscribe(),

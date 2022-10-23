@@ -3,5 +3,6 @@
     {{ data.msg_id | translate }}
 </div>
 <div [align]="'end'" mat-dialog-actions>
+    <button color="default" mat-button [mat-dialog-close]="false">{{ 'common.cancel' | translate }}</button>
     <button color="warn" mat-raised-button [mat-dialog-close]="data.pass ?? true">{{ 'common.confirm' | translate }}</button>
 </div>

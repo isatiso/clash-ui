@@ -15,8 +15,8 @@ export class ProxiesService {
     public groups: Record<string, ProxyItem> = {}
 
     public request$ = new Subject()
-    public speed_test$ = new Subject<string>()
-    public speed_test_finish$ = new Subject()
+    public single_test$ = new Subject<string>()
+    public single_test_finish$ = new Subject()
 
     constructor(
         private _api: ApiService,
@@ -33,16 +33,16 @@ export class ProxiesService {
             proxy_names.forEach(name => proxies[name].delay = proxies[name].history[proxies[name].history.length - 1]?.delay)
             this.proxies = proxies
         })
-        this.speed_test$.pipe(
-            mergeMap(name => forkJoin([of(name), this._api.proxy_delay(name, this._configs.speed_url)]), 5),
+        this.single_test$.pipe(
+            mergeMap(name => forkJoin([of(name), this._api.proxy_delay(name, this._configs.speed_url)]), 10),
             catchError((err, caught) => caught),
             tap(([name, res]) => this.proxies[name].delay = res.delay),
             debounceTime(5000),
-            tap(() => this.speed_test_finish$.next(null))
+            tap(() => this.single_test_finish$.next(null))
         ).subscribe()
     }
 
     speed_test() {
-        this.proxy_names.forEach(name => this.speed_test$.next(name))
+        this.proxy_names.forEach(name => this.single_test$.next(name))
     }
 }
