@@ -8,10 +8,11 @@ import { Observable } from 'rxjs'
 @Injectable()
 export class TranslateServerLoader implements TranslateLoader {
 
+    private prefix: string = 'i18n'
+    private suffix: string = '.json'
+
     constructor(
         private transferState: TransferState,
-        private prefix: string = 'i18n',
-        private suffix: string = '.json'
     ) {
     }
 
